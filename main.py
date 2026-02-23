@@ -56,8 +56,14 @@ jun_sorok = darabszam_sorok[
 x = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False)
 y = jun_sorok[oszlop_szemely]
 
+# --- Oszlopdiagram ---
 plt.figure(figsize=(12, 6))
-plt.bar(x, y, color="steelblue")
+
+# X pozíciók (indexek)
+x_labels = x.tolist()
+x_pos = range(len(x_labels))
+
+plt.bar(x_pos, y, color="steelblue")
 
 # Értékek kiírása az oszlopok fölé
 for i, v in enumerate(y):
@@ -73,9 +79,8 @@ for i, v in enumerate(y):
 plt.title("Személygépkocsik száma június végén")
 plt.xlabel("Év")
 plt.ylabel("Darabszám")
+plt.xticks(x_pos, x_labels)
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()
-
-
