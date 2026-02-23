@@ -23,7 +23,7 @@ ertekek = sor[oszlopok]
 
 # Grafikon készítése
 plt.figure(figsize=(10,6))
-plt.bar(oszlopok, ertekek)
+plt.bar(ertekek, oszlopok)
 plt.title(f"Járművek száma - ({sor['Év']})")
 plt.ylabel("Darabszám")
 plt.show()
