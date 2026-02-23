@@ -10,3 +10,6 @@ atlagoskor = pd.read_csv(
 otodik_sor = atlagoskor.iloc[0]  
 
 print(otodik_sor)
+
+oszlopok = atlagoskor[["ÉV", "Időszak"]]
+print(oszlopok)
