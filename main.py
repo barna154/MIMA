@@ -6,7 +6,7 @@ atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
     sep=";",
     encoding="latin1",
-    header=1
+    header=2
 )
 
 # Szóközök eltávolítása az oszlopnevekből
