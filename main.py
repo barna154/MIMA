@@ -67,7 +67,7 @@ plt.bar(x_pos, y, color="steelblue")
 # Értékek kiírása az oszlopok fölé
 for i, v in enumerate(y):
     plt.text(
-        i,
+        x_pos[i],
         v + max(y)*0.01,
         f"{v:,}".replace(",", " "),
         ha="center",
