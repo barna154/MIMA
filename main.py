@@ -1,19 +1,22 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# A tényleges fejléc a CSV 2. vagy 3. sorában van, számold 0-tól
+# CSV beolvasása
 atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
-    sep=";",        # pontosvessző a magyar Excel CSV-knél
+    sep=";",
     encoding="latin1",
-    header=1        # 0-tól számítva a 2. sor lesz a fejléc
+    header=1
 )
 
-# Tegyük fel, hogy az 1. sor kel
+# Szóközök eltávolítása az oszlopnevekből
+atlagoskor.columns = atlagoskor.columns.str.strip()
+
+# Az 5. sor kiválasztása (index 4)
 sor = atlagoskor.iloc[4]
 
-# Csak a járműtípus oszlopok kellenek (pl. Személygépkocsi–Vontató)
-oszlopok = ["Személygépkocsi"]
+# Csak a járműtípus oszlopok kellenek
+oszlopok = ["Személygépkocsi", "Autóbusz", "Motorkerékpár", "Tehergépkocsi", "Vontató"]
 ertekek = sor[oszlopok]
 
 # Grafikon készítése
