@@ -11,6 +11,7 @@ atlagoskor = pd.read_csv(
     #skip_blank_lines=True
 )
 
+
 # Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
@@ -18,7 +19,7 @@ atlagoskor.columns = atlagoskor.columns.str.strip()
 atlagoskor['Év'] = atlagoskor['Év'].ffill()
 
 # Csak júniusi sorok (ha évi egyszeri adat kell)
-jun_sorok = atlagoskor[atlagoskor['Időszak'].str.contains('június', na=False)]
+jun_sorok = atlagoskor[atlagoskor.iloc[:, 1].str.contains('június', na=False)]
 
 # Értékek: Személygépkocsi számok
 # Szóközök eltávolítása és int-re konvertálás
