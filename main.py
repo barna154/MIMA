@@ -4,12 +4,9 @@ atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
     sep=";",          # mert valószínűleg pontosvesszős
     encoding="latin1",  # Windows-1250 / latin1 a magyar CSV-knél
-    header=1
+    header=2
 )
 
-otodik_sor = atlagoskor.iloc[4]  
+otodik_sor = atlagoskor.iloc[2]  
 
 print(otodik_sor)
-
-oszlopok = atlagoskor[["Év", "Időszak"]]
-print(oszlopok)
