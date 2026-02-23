@@ -6,7 +6,7 @@ import matplotlib.ticker as mtick
 atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
     sep=";",
-    encoding="latin1",
+    encoding="cp1250",
     header=1
 )
 
