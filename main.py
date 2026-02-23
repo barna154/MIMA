@@ -38,6 +38,10 @@ darabszam_sorok = atlagoskor[
     .str.isdigit()
 ]
 
+# --- Itt dobjuk ki az átlagos kor blokkot ---
+# Az átlagos kor résznél az év üres → ezt kiszűrjük
+darabszam_sorok = darabszam_sorok.dropna(subset=[oszlop_ev])
+
 # Konvertálás int-re
 darabszam_sorok[oszlop_szemely] = (
     darabszam_sorok[oszlop_szemely]
@@ -83,3 +87,4 @@ plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()
+
