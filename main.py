@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 # A tényleges fejléc a CSV 2. vagy 3. sorában van, számold 0-tól
 atlagoskor = pd.read_csv(
@@ -8,8 +10,16 @@ atlagoskor = pd.read_csv(
     header=1        # 0-tól számítva a 2. sor lesz a fejléc
 )
 
-# Ellenőrzés: oszlopok nevei
-print("Oszlopok:", atlagoskor.columns.tolist())
+# Tegyük fel, hogy az 1. sor kel
+sor = atlagoskor.iloc[4]
 
-# Például egy konkrét oszlop
-print(atlagoskor["Év"])
+# Csak a járműtípus oszlopok kellenek (pl. Személygépkocsi–Vontató)
+oszlopok = ["Személygépkocsi"]
+ertekek = sor[oszlopok]
+
+# Grafikon készítése
+plt.figure(figsize=(10,6))
+plt.bar(oszlopok, ertekek)
+plt.title(f"Járművek száma - {sor['Terület']} ({sor['Év']})")
+plt.ylabel("Darabszám")
+plt.show()
