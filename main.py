@@ -27,7 +27,7 @@ def keres_oszlop(df, kulcsszavak):
 
 oszlop_szemely = keres_oszlop(atlagoskor, ["Személygépkocsi"])
 oszlop_ev = keres_oszlop(atlagoskor, ["ev"])
-oszlop_idoszak = keres_oszlop(atlagoskor, ["ido", "idoszak"])
+oszlop_idoszak = keres_oszlop(atlagoskor, ["ido", "Időszak"])
 
 # Hiányzó év kitöltése
 atlagoskor[oszlop_ev] = atlagoskor[oszlop_ev].ffill()
