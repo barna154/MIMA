@@ -15,7 +15,7 @@ print(atlagoskor.iloc[1])
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
 # Az 5. sor kiválasztása (index 4)
-sor = atlagoskor.iloc[4]
+sor = atlagoskor.iloc[3]
 
 # Csak a járműtípus oszlopok kellenek
 oszlopok = ["Személygépkocsi", "Autóbusz", "Motorkerékpár", "Tehergépkocsi", "Vontató"]
