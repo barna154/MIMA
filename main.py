@@ -6,37 +6,44 @@ import matplotlib.ticker as mtick
 atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
     sep=";",
-    encoding="cp1250",
+    encoding="cp1250",   # magyar karakterek
     header=1
 )
 
-# Oszlopnevek tisztítása
+# Oszlopnevek tisztítása (szóköz eltávolítás)
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
-# Üres 'Év' kitöltése
-atlagoskor['Ev'] = atlagoskor['Ev'].ffill()
+# Megkeressük a tényleges oszlopneveket
+oszlop_szemely = [c for c in atlagoskor.columns if 'Személygépkocsi' in c][0]
+oszlop_ev = [c for c in atlagoskor.columns if 'Év' in c or 'Ev' in c][0]
+oszlop_idoszak = [c for c in atlagoskor.columns if 'Időszak' in c or 'Idoszak' in c or 'Idõszak' in c][0]
 
-# Csak azok a sorok, ahol a Személygépkocsi oszlop **számot tartalmaz**  
-# (előző próbálkozás helyett, regex használat)
-darabszam_sorok = atlagoskor[atlagoskor['Személygépkocsi'].str.replace(' ', '').str.match(r'^\d+$', na=False)]
+# Hiányzó 'Év' kitöltése az előző sorral
+atlagoskor[oszlop_ev] = atlagoskor[oszlop_ev].ffill()
+
+# Csak a darabszám sorok (átlagos kor sorokat kihagyjuk)
+darabszam_sorok = atlagoskor[
+    atlagoskor[oszlop_szemely].astype(str).str.replace(' ','').str.replace(',','').str.isdigit()
+]
 
 # Konvertálás int-re
-darabszam_sorok['Személygépkocsi'] = darabszam_sorok['Személygépkocsi'].str.replace(' ', '').astype(int)
+darabszam_sorok[oszlop_szemely] = darabszam_sorok[oszlop_szemely].astype(str).str.replace(' ','').astype(int)
 
 # Csak júniusi sorok
-jun_sorok = atlagoskor[
-    atlagoskor['Személygépkocsi'].str.replace(' ', '').str.match(r'^\d+$', na=False) &
-    atlagoskor['Idoszak'].str.contains('június', na=False)
-]# X és Y
-x = jun_sorok['Ev'].str.replace('.', '', regex=False)
-y = jun_sorok['Személygépkocsi']
+jun_sorok = darabszam_sorok[
+    darabszam_sorok[oszlop_idoszak].str.contains('június', na=False)
+]
 
-# Grafikon
+# X és Y adatok
+x = jun_sorok[oszlop_ev].astype(str).str.replace('.', '', regex=False)
+y = jun_sorok[oszlop_szemely]
+
+# Grafikon készítése
 plt.figure(figsize=(12,6))
-plt.plot(x, y, marker='o')
+plt.plot(x, y, marker='o', linestyle='-', color='blue')
 plt.title("Személygépkocsik száma június végén")
-plt.xlabel("Ev")
+plt.xlabel("Év")
 plt.ylabel("Darabszám")
-plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter('{x:,.0f}'))
+plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter('{x:,.0f}'))  # teljes számok
 plt.grid(True)
 plt.show()
