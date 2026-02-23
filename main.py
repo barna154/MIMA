@@ -9,3 +9,6 @@ atlagoskor = pd.read_csv(
 otodik_sor = atlagoskor.iloc[4]  
 
 print(otodik_sor)
+
+atlag_kor_oszlop = atlagoskor["Személygépkocsi"]
+print(atlag_kor_oszlop)
