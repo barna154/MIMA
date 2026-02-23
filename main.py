@@ -11,5 +11,5 @@ otodik_sor = atlagoskor.iloc[0]
 
 print(otodik_sor)
 
-oszlopok = atlagoskor[["ÉV", "Időszak"]]
+oszlopok = atlagoskor["ÉV"]
 print(oszlopok)
