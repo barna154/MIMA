@@ -8,31 +8,32 @@ atlagoskor = pd.read_csv(
     sep=";",
     encoding="latin1",
     header=1,
-    skip_blank_lines=True
+    #skip_blank_lines=True
 )
 
 # Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
-# Üres 'Év' kitöltése az előző évvel (forward fill)
+# Üres 'Év' kitöltése az előző évvel
 atlagoskor['Év'] = atlagoskor['Év'].ffill()
-# 5. sor kiválasztása
-sor = atlagoskor.iloc[4]
 
-# Járműoszlopok kiválasztása
-oszlopok = ["Személygépkocsi", "Autóbusz", "Motorkerékpár", "Tehergépkocsi", "Vontató"]
+# Csak júniusi sorok (ha évi egyszeri adat kell)
+jun_sorok = atlagoskor[atlagoskor['Időszak'].str.contains('június', na=False)]
 
-# Értékek konvertálása int-re
-ertekek = sor[oszlopok].astype(str).str.replace(' ', '').astype(int)
+# Értékek: Személygépkocsi számok
+# Szóközök eltávolítása és int-re konvertálás
+jun_sorok['Személygépkocsi'] = jun_sorok['Személygépkocsi'].astype(str).str.replace(' ', '').astype(int)
 
-# Rendezés csökkenő sorrendben
-ertekek_sorted = ertekek.sort_values(ascending=False)
+# X és Y
+x = jun_sorok['Év'].str.replace('.', '', regex=False)  # a pontot eltávolítjuk az évszám végéről
+y = jun_sorok['Személygépkocsi']
 
 # Grafikon
-plt.figure(figsize=(10,6))
-plt.bar(ertekek_sorted.values, ertekek_sorted.index)
-plt.title(f"Járművek száma - {sor['Év']}")
+plt.figure(figsize=(12,6))
+plt.plot(x, y, marker='o')
+plt.title("Személygépkocsik száma június végén")
+plt.xlabel("Év")
 plt.ylabel("Darabszám")
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter('{x:,.0f}'))
-
+plt.grid(True)
 plt.show()
