@@ -10,5 +10,5 @@ otodik_sor = atlagoskor.iloc[4]
 
 print(otodik_sor)
 
-atlag_kor_oszlop = atlagoskor["Személygépkocsi"]
+atlag_kor_oszlop = atlagoskor["Év"]
 print(atlag_kor_oszlop)
