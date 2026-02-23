@@ -24,6 +24,6 @@ ertekek = sor[oszlopok]
 # Grafikon készítése
 plt.figure(figsize=(10,6))
 plt.bar(oszlopok, ertekek)
-plt.title(f"Járművek száma - {sor['Időszak']} ({sor['Év']})")
+plt.title(f"Járművek száma - ({sor['Év']})")
 plt.ylabel("Darabszám")
 plt.show()
