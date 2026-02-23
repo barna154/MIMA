@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 # A tényleges fejléc a CSV 2. vagy 3. sorában van, számold 0-tól
 atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
@@ -20,6 +19,6 @@ ertekek = sor[oszlopok]
 # Grafikon készítése
 plt.figure(figsize=(10,6))
 plt.bar(oszlopok, ertekek)
-plt.title(f"Járművek száma - {sor['Terület']} ({sor['Év']})")
+plt.title(f"Járművek száma - {sor['Időszak']} ({sor['Év']})")
 plt.ylabel("Darabszám")
 plt.show()
