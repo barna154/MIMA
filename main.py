@@ -53,14 +53,13 @@ jun_sorok = darabszam_sorok[
 ]
 
 # X és Y adatok
-x = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False)
-y = jun_sorok[oszlop_szemely]
+x_labels = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False).tolist()
+y = jun_sorok[oszlop_szemely].tolist()
 
 # --- Oszlopdiagram ---
 plt.figure(figsize=(12, 6))
 
-# X pozíciók (indexek)
-x_labels = x.tolist()
+# X pozíciók (indexek!)
 x_pos = list(range(len(x_labels)))
 
 plt.bar(x_pos, y, color="steelblue")
@@ -68,7 +67,7 @@ plt.bar(x_pos, y, color="steelblue")
 # Értékek kiírása az oszlopok fölé
 for i, v in enumerate(y):
     plt.text(
-        x_pos[i],
+        i,
         v + max(y)*0.01,
         f"{v:,}".replace(",", " "),
         ha="center",
