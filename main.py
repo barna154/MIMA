@@ -56,13 +56,15 @@ jun_sorok = darabszam_sorok[
 x = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False)
 y = jun_sorok[oszlop_szemely]
 
-# Grafikon
+# Grafikon – OSZLOPDIAGRAM
 plt.figure(figsize=(12, 6))
-plt.plot(x, y, marker="o", linestyle="-", color="blue")
+plt.bar(x, y, color="steelblue")
+
 plt.title("Személygépkocsik száma június végén")
 plt.xlabel("Év")
 plt.ylabel("Darabszám")
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
-plt.grid(True)
+plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()
+
