@@ -10,22 +10,24 @@ atlagoskor = pd.read_csv(
 )
 
 
-print(atlagoskor.iloc[1])
-# Szóközök eltávolítása az oszlopnevekből
+# Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
-# Az 5. sor kiválasztása (index 4)
-sor = atlagoskor.iloc[3]
+# 5. sor kiválasztása
+sor = atlagoskor.iloc[4]
 
-# Csak a járműtípus oszlopok kellenek
+# Járműoszlopok
 oszlopok = ["Személygépkocsi", "Autóbusz", "Motorkerékpár", "Tehergépkocsi", "Vontató"]
-ertekek = sor[oszlopok]
-ertekek_sorted = ertekek.sort_values()
 
-# Grafikon készítése
-# Grafikon készítése
+# Értékek számmá alakítása
+ertekek = sor[oszlopok].str.replace(' ', '').astype(int)
+
+# Rendezés érték szerint csökkenő sorrendben
+ertekek_sorted = ertekek.sort_values(ascending=False)
+
+# Grafikon
 plt.figure(figsize=(10,6))
 plt.bar(ertekek_sorted.index, ertekek_sorted.values)
-plt.title(f"Járművek száma - ({sor['Év']})")
+plt.title(f"Járművek száma - {sor['Időszak']} ({sor['Év']})")
 plt.ylabel("Darabszám")
 plt.show()
