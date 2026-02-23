@@ -18,9 +18,9 @@ sor = atlagoskor.iloc[4]
 
 # Járműoszlopok kiválasztása (Darabszám)
 oszlopok = ["Személygépkocsi", "Autóbusz", "Motorkerékpár", "Tehergépkocsi", "Vontató"]
-
-# Értékek konvertálása int-re (szóközök eltávolítása)
-ertekek = sor[oszlopok].str.replace(' ', '').astype(int)
+# Számok tisztítása: szóköz eltávolítása és int-re konvertálás
+# Fontos: először stringgé alakítjuk, majd a szóközt eltávolítjuk, végül int
+ertekek = sor[oszlopok].astype(str).str.replace(' ', '').astype(int)
 
 # Rendezés csökkenő sorrendbe
 ertekek_sorted = ertekek.sort_values(ascending=False)
