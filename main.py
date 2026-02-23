@@ -13,7 +13,7 @@ atlagoskor = pd.read_csv(
 # Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
-# --- Automatikus oszlopfelismerés hibás ékezetekkel is ---
+# --- Automatikus oszlopfelismerés ---
 def keres_oszlop(df, kulcsszavak):
     kulcsszavak = [k.lower() for k in kulcsszavak]
     for col in df.columns:
@@ -22,17 +22,14 @@ def keres_oszlop(df, kulcsszavak):
             return col
     raise ValueError(f"Nincs ilyen oszlop: {kulcsszavak}")
 
-# A CSV-ben így néznek ki az oszlopok:
-# 'Ev', 'Idoszak', 'Szem�lyg�pkocsi', 'Aut�busz', ...
-
-oszlop_szemely = keres_oszlop(atlagoskor, ["Szemelygepkocsi"])
-oszlop_ev = keres_oszlop(atlagoskor, ["Ev"])
-oszlop_idoszak = keres_oszlop(atlagoskor, ["ido", "Idoszak"])
+oszlop_szemely = keres_oszlop(atlagoskor, ["szem"])
+oszlop_ev = keres_oszlop(atlagoskor, ["ev"])
+oszlop_idoszak = keres_oszlop(atlagoskor, ["ido"])
 
 # Hiányzó év kitöltése
 atlagoskor[oszlop_ev] = atlagoskor[oszlop_ev].ffill()
 
-# Csak darabszám sorok (számok)
+# Csak darabszám sorok
 darabszam_sorok = atlagoskor[
     atlagoskor[oszlop_szemely]
     .astype(str)
@@ -50,9 +47,9 @@ darabszam_sorok[oszlop_szemely] = (
     .astype(int)
 )
 
-# Csak júniusi sorok
+# --- Júniusi sorok kiválasztása: "30." dátum alapján ---
 jun_sorok = darabszam_sorok[
-    darabszam_sorok[oszlop_idoszak].str.contains("j\u00fanius", case=False, na=False)
+    darabszam_sorok[oszlop_idoszak].str.contains("30.", na=False)
 ]
 
 # X és Y adatok
