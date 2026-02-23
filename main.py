@@ -1,15 +1,15 @@
-import pandas as pd 
+import pandas as pd
 
+# A tényleges fejléc a CSV 2. vagy 3. sorában van, számold 0-tól
 atlagoskor = pd.read_csv(
     r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv",
-    sep=";",          # mert valószínűleg pontosvesszős
-    encoding="latin1",  # Windows-1250 / latin1 a magyar CSV-knél
-
+    sep=";",        # pontosvessző a magyar Excel CSV-knél
+    encoding="latin1",
+    header=1        # 0-tól számítva a 2. sor lesz a fejléc
 )
 
-otodik_sor = atlagoskor.iloc[0]  
+# Ellenőrzés: oszlopok nevei
+print("Oszlopok:", atlagoskor.columns.tolist())
 
-print(otodik_sor)
-
-oszlopok = atlagoskor["ÉV"]
-print(oszlopok)
+# Például egy konkrét oszlop
+print(atlagoskor["Év"].head())
