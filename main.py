@@ -26,6 +26,12 @@ oszlop_szemely = keres_oszlop(atlagoskor, ["szem"])
 oszlop_ev = keres_oszlop(atlagoskor, ["ev"])
 oszlop_idoszak = keres_oszlop(atlagoskor, ["ido"])
 
+# --- A darabszám blokk levágása az "átlagos kor" sor előtt ---
+stop_index = atlagoskor[atlagoskor[oszlop_ev].astype(str).str.contains("tlagos", case=False, na=False)].index
+
+if len(stop_index) > 0:
+    atlagoskor = atlagoskor.loc[:stop_index[0]-1]
+
 # Hiányzó év kitöltése
 atlagoskor[oszlop_ev] = atlagoskor[oszlop_ev].ffill()
 
@@ -37,10 +43,6 @@ darabszam_sorok = atlagoskor[
     .str.replace(",", "")
     .str.isdigit()
 ]
-
-# --- Itt dobjuk ki az átlagos kor blokkot ---
-# Az átlagos kor résznél az év üres → ezt kiszűrjük
-darabszam_sorok = darabszam_sorok.dropna(subset=[oszlop_ev])
 
 # Konvertálás int-re
 darabszam_sorok[oszlop_szemely] = (
@@ -87,4 +89,3 @@ plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()
-
