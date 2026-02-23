@@ -1,4 +1,6 @@
 import pandas as pd
+import os
+print("Jelenlegi munkakönyvtár:", os.getcwd())
 
 atlagoskor = pd.read_csv(r"adatbazisok\stadat-sza0069-24.2.1.21-hu.csv") 
 
