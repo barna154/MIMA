@@ -9,7 +9,6 @@ atlagoskor = pd.read_csv(
     header=1
 )
 
-
 # Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
