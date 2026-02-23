@@ -21,6 +21,10 @@ sor = atlagoskor.iloc[3]
 oszlopok = ["Személygépkocsi", "Autóbusz", "Motorkerékpár", "Tehergépkocsi", "Vontató"]
 ertekek = sor[oszlopok]
 
+
+# Megfordítjuk a sorrendet
+oszlopok = oszlopok[::-1]
+ertekek = ertekek[::-1]
 # Grafikon készítése
 plt.figure(figsize=(10,6))
 plt.bar(oszlopok, ertekek)
