@@ -30,7 +30,7 @@ ertekek_sorted = ertekek.sort_values(ascending=False)
 
 # Grafikon
 plt.figure(figsize=(10,6))
-plt.bar(ertekek_sorted.index, ertekek_sorted.values)
+plt.bar(ertekek_sorted.values, ertekek_sorted.index)
 plt.title(f"Járművek száma - {sor['Év']}")
 plt.ylabel("Darabszám")
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter('{x:,.0f}'))
