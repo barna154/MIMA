@@ -12,4 +12,4 @@ atlagoskor = pd.read_csv(
 print("Oszlopok:", atlagoskor.columns.tolist())
 
 # Például egy konkrét oszlop
-print(atlagoskor["Év"].head())
+print(atlagoskor["Év"])
