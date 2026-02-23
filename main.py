@@ -13,14 +13,14 @@ atlagoskor = pd.read_csv(
 # Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
-# Üres 'Év' kitöltése az előző évvel
+# Üres 'Év' kitöltése
 atlagoskor['Év'] = atlagoskor['Év'].ffill()
 
-# Csak a darabszám sorok: a 'Személygépkocsi' oszlopban van szám (átlagos kor sorokat hagyjuk ki)
-# Általában az átlagos kor sor után egy "átlagos kor" cím van, ami NaN értékeket ad
-darabszam_sorok = atlagoskor[atlagoskor['Személygépkocsi'].str.replace(' ', '').str.replace(',', '').str.isdigit()]
+# Csak azok a sorok, ahol a Személygépkocsi oszlop **számot tartalmaz**  
+# (előző próbálkozás helyett, regex használat)
+darabszam_sorok = atlagoskor[atlagoskor['Személygépkocsi'].str.replace(' ', '').str.match(r'^\d+$', na=False)]
 
-# Szóközök eltávolítása és int konvertálás
+# Konvertálás int-re
 darabszam_sorok['Személygépkocsi'] = darabszam_sorok['Személygépkocsi'].str.replace(' ', '').astype(int)
 
 # Csak júniusi sorok
