@@ -6,5 +6,6 @@ atlagoskor = pd.read_csv(
     encoding="latin1"  # Windows-1250 / latin1 a magyar CSV-knél
 )
 
-print(atlagoskor.head())
-print("Oszlopok:", atlagoskor.columns.tolist())
+otodik_sor = atlagoskor.iloc[4]  
+
+print(otodik_sor)
