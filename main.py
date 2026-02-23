@@ -14,7 +14,7 @@ atlagoskor = pd.read_csv(
 atlagoskor.columns = atlagoskor.columns.str.strip()
 
 # Üres 'Év' kitöltése az előző évvel (forward fill)
-atlagoskor['Év'] = atlagoskor['Év'].fillna(method='ffill')
+atlagoskor['Év'] = atlagoskor['Év'].fillna(method='fill')
 
 # 5. sor kiválasztása
 sor = atlagoskor.iloc[4]
