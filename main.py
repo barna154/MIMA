@@ -25,7 +25,7 @@ def keres_oszlop(df, kulcsszavak):
 # A CSV-ben így néznek ki az oszlopok:
 # 'Ev', 'Idoszak', 'Szem�lyg�pkocsi', 'Aut�busz', ...
 
-oszlop_szemely = keres_oszlop(atlagoskor, ["szem", "gpkocsi", "gpkocsi", "gpk"])
+oszlop_szemely = keres_oszlop(atlagoskor, ["Személygépkocsi"])
 oszlop_ev = keres_oszlop(atlagoskor, ["ev"])
 oszlop_idoszak = keres_oszlop(atlagoskor, ["ido", "idoszak"])
 
