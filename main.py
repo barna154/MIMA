@@ -11,5 +11,5 @@ otodik_sor = atlagoskor.iloc[4]
 
 print(otodik_sor)
 
-print(atlagoskor.head())
-print("Oszlopok:", atlagoskor.columns.tolist())
+oszlopok = atlagoskor[["Év", "Időszak"]]
+print(oszlopok)
