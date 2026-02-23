@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.ticker as mtick
 import matplotlib.pyplot as plt
 
 # CSV beolvasása
@@ -32,4 +33,6 @@ plt.figure(figsize=(10,6))
 plt.bar(ertekek_sorted.index, ertekek_sorted.values)
 plt.title(f"Járművek száma - {sor['Év']}")
 plt.ylabel("Darabszám")
+plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter('{x:,.0f}'))
+
 plt.show()
