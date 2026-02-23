@@ -24,9 +24,10 @@ darabszam_sorok = atlagoskor[atlagoskor['Személygépkocsi'].str.replace(' ', ''
 darabszam_sorok['Személygépkocsi'] = darabszam_sorok['Személygépkocsi'].str.replace(' ', '').astype(int)
 
 # Csak júniusi sorok
-jun_sorok = darabszam_sorok[darabszam_sorok['Időszak'].str.contains('június', na=False)]
-
-# X és Y
+jun_sorok = atlagoskor[
+    atlagoskor['Személygépkocsi'].str.replace(' ', '').str.match(r'^\d+$', na=False) &
+    atlagoskor['Időszak'].str.contains('június', na=False)
+]# X és Y
 x = jun_sorok['Év'].str.replace('.', '', regex=False)
 y = jun_sorok['Személygépkocsi']
 
