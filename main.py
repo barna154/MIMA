@@ -67,8 +67,8 @@ for i, v in enumerate(y):
         color="black"
     )
 plt.title("Személygépkocsik száma június végén", color="green", size="23", fontweight="bold")
-plt.xlabel("Év", color="black", size="20")
-plt.ylabel("Darabszám", color="black", size="20")
+plt.xlabel("Év", color="black", size="20", fontweight="bold")
+plt.ylabel("Darabszám", color="black", size="20", fontweight="bold")
 plt.xticks(x_pos, x_labels)
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
 plt.gca().tick_params(axis="x", colors="black") 
