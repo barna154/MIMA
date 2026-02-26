@@ -75,7 +75,9 @@ y2 = jun_kor[oszlop_kor].tolist()
 plt.figure(figsize=(12, 7), facecolor="#DEDCDC")
 x_pos2 = list(range(len(x_labels2)))
 
-plt.bar(x_pos2, y2, color="#8BF43F")
+
+colors = ["#8BF43F", "green"]
+plt.bar(x_pos2, y2, color=colors)
 
 for i, v in enumerate(y2):
     plt.text(
