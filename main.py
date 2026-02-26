@@ -9,11 +9,7 @@ atlagoskor = pd.read_csv(
     encoding="cp1250",
     header=1
 )
-
-# Oszlopnevek tisztítása
 atlagoskor.columns = atlagoskor.columns.str.strip()
-
-# --- Automatikus oszlopfelismerés ---
 def keres_oszlop(df, kulcsszavak):
     kulcsszavak = [k.lower() for k in kulcsszavak]
     for col in df.columns:
@@ -25,17 +21,11 @@ def keres_oszlop(df, kulcsszavak):
 oszlop_szemely = keres_oszlop(atlagoskor, ["szem"])
 oszlop_ev = keres_oszlop(atlagoskor, ["ev"])
 oszlop_idoszak = keres_oszlop(atlagoskor, ["ido"])
-
-# --- A darabszám blokk levágása az "átlagos kor" sor előtt ---
 stop_index = atlagoskor[atlagoskor[oszlop_ev].astype(str).str.contains("tlagos", case=False, na=False)].index
 
 if len(stop_index) > 0:
     atlagoskor = atlagoskor.loc[:stop_index[0]-1]
-
-# Hiányzó év kitöltése
 atlagoskor[oszlop_ev] = atlagoskor[oszlop_ev].ffill()
-
-# Csak darabszám sorok
 darabszam_sorok = atlagoskor[
     atlagoskor[oszlop_szemely]
     .astype(str)
@@ -53,7 +43,6 @@ darabszam_sorok[oszlop_szemely] = (
     .astype(int)
 )
 
-# --- Júniusi sorok kiválasztása: "30." dátum alapján ---
 jun_sorok = darabszam_sorok[
     darabszam_sorok[oszlop_idoszak].str.contains("30.", na=False)
 ]
@@ -64,13 +53,8 @@ y = jun_sorok[oszlop_szemely].tolist()
 
 # --- Oszlopdiagram ---
 plt.figure(figsize=(12, 7), facecolor="#DEDCDC")
-
-# X pozíciók (indexek!)
 x_pos = list(range(len(x_labels)))
-
 plt.bar(x_pos, y, color="#1AD91A")
-
-# Értékek kiírása az oszlopok fölé
 for i, v in enumerate(y):
     plt.text(
         x_pos[i],
@@ -81,7 +65,6 @@ for i, v in enumerate(y):
         fontsize=12,
         color="green"
     )
-
 plt.title("Személygépkocsik száma június végén", color="green", size="23")
 plt.xlabel("Év", color="green", size="20")
 plt.ylabel("Darabszám", color="green", size="20")
