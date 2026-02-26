@@ -66,7 +66,7 @@ for i, v in enumerate(y):
         fontsize=12,
         color="black"
     )
-plt.title("Személygépkocsik száma június végén", color="green", size="23")
+plt.title("Személygépkocsik száma június végén", color="green", size="23", fontweight="bold")
 plt.xlabel("Év", color="black", size="20")
 plt.ylabel("Darabszám", color="black", size="20")
 plt.xticks(x_pos, x_labels)
