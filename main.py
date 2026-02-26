@@ -78,7 +78,7 @@ for i, v in enumerate(y):
         f"{v:,}".replace(",", " "),
         ha="center",
         va="bottom",
-        fontsize=20
+        fontsize=20,
         color="green"
     )
 
