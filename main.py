@@ -64,15 +64,15 @@ for i, v in enumerate(y):
         ha="center",
         va="bottom",
         fontsize=12,
-        color="green"
+        color="black"
     )
 plt.title("Személygépkocsik száma június végén", color="green", size="23")
-plt.xlabel("Év", color="green", size="20")
-plt.ylabel("Darabszám", color="green", size="20")
+plt.xlabel("Év", color="black", size="20")
+plt.ylabel("Darabszám", color="black", size="20")
 plt.xticks(x_pos, x_labels)
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
-plt.gca().tick_params(axis="x", colors="green") 
-plt.gca().tick_params(axis="y", colors="green")
+plt.gca().tick_params(axis="x", colors="black") 
+plt.gca().tick_params(axis="y", colors="black")
 plt.gca().set_facecolor("#DEDCDC")
 plt.grid(axis="y", linestyle="--", alpha=0.6, color="green")
 plt.tight_layout()
