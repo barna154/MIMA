@@ -54,7 +54,7 @@ y = jun_sorok[oszlop_szemely].tolist()
 # --- Oszlopdiagram ---
 plt.figure(figsize=(12, 7), facecolor="#DEDCDC")
 x_pos = list(range(len(x_labels)))
-plt.bar(x_pos, y, color="#1AD91A")
+plt.bar(x_pos, y, color="#8BF43F")
 for i, v in enumerate(y):
     plt.text(
         x_pos[i],
