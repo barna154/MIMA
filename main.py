@@ -44,7 +44,7 @@ darabszam_sorok[oszlop_szemely] = (
 )
 
 jun_sorok = darabszam_sorok[
-    darabszam_sorok[oszlop_idoszak].str.contains("30.", na=False)
+    darabszam_sorok[oszlop_idoszak].str.contains("31.", na=False)
 ]
 
 # X és Y adatok
