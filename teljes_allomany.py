@@ -6,7 +6,7 @@ import matplotlib.ticker as mtick
 df = pd.read_csv(
     r"adatbazisok\stadat-sza0040-24.1.2.2-hu.csv",
     sep="\t",
-    encoding="utf-8"
+    encoding="cp1250",
 )
 
 # Oszlopnevek tisztítása
