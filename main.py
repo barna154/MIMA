@@ -78,7 +78,8 @@ for i, v in enumerate(y):
         f"{v:,}".replace(",", " "),
         ha="center",
         va="bottom",
-        fontsize=10
+        fontsize=20
+        color="green"
     )
 
 plt.title("Személygépkocsik száma június végén", color="green", size="23")
