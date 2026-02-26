@@ -63,7 +63,7 @@ x_labels = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False).to
 y = jun_sorok[oszlop_szemely].tolist()
 
 # --- Oszlopdiagram ---
-plt.figure(figsize=(12, 6), facecolor="gray")
+plt.figure(figsize=(12, 6), facecolor="#DEDCDC")
 
 # X pozíciók (indexek!)
 x_pos = list(range(len(x_labels)))
@@ -86,7 +86,7 @@ plt.xlabel("Év")
 plt.ylabel("Darabszám")
 plt.xticks(x_pos, x_labels)
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
-plt.gca().set_facecolor("gray")
+plt.gca().set_facecolor("#DEDCDC")
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()
