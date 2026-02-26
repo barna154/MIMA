@@ -63,7 +63,7 @@ x_labels = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False).to
 y = jun_sorok[oszlop_szemely].tolist()
 
 # --- Oszlopdiagram ---
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 6), facecolor="gray")
 
 # X pozíciók (indexek!)
 x_pos = list(range(len(x_labels)))
