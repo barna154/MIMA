@@ -81,9 +81,9 @@ for i, v in enumerate(y):
         fontsize=10
     )
 
-plt.title("Személygépkocsik száma június végén")
-plt.xlabel("Év")
-plt.ylabel("Darabszám")
+plt.title("Személygépkocsik száma június végén", color="green")
+plt.xlabel("Év", color="green")
+plt.ylabel("Darabszám", color="green")
 plt.xticks(x_pos, x_labels)
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
 plt.gca().set_facecolor("#DEDCDC")
