@@ -25,6 +25,7 @@ stop_index = atlagoskor[atlagoskor[oszlop_ev].astype(str).str.contains("tlagos",
 
 if len(stop_index) > 0:
     atlagoskor = atlagoskor.loc[:stop_index[0]-1]
+
 atlagoskor[oszlop_ev] = atlagoskor[oszlop_ev].ffill()
 darabszam_sorok = atlagoskor[
     atlagoskor[oszlop_szemely]
@@ -34,7 +35,6 @@ darabszam_sorok = atlagoskor[
     .str.isdigit()
 ]
 
-# Konvertálás int-re
 darabszam_sorok[oszlop_szemely] = (
     darabszam_sorok[oszlop_szemely]
     .astype(str)
@@ -46,12 +46,13 @@ darabszam_sorok[oszlop_szemely] = (
 jun_sorok = darabszam_sorok[
     darabszam_sorok[oszlop_idoszak].str.contains("30.", na=False)
 ]
-
-# X és Y adatok
 x_labels = jun_sorok[oszlop_ev].astype(str).str.replace(".", "", regex=False).tolist()
 y = jun_sorok[oszlop_szemely].tolist()
 
-# --- Oszlopdiagram ---
+
+
+
+# Diagram
 plt.figure(figsize=(12, 7), facecolor="#DEDCDC")
 x_pos = list(range(len(x_labels)))
 colors = ["#8BF43F", "green"]
@@ -66,7 +67,8 @@ for i, v in enumerate(y):
         fontsize=12,
         color="black"
     )
-plt.title("Személygépkocsik száma június végén", color="green", size="23", fontweight="bold")
+
+plt.title("Személygépkocsik száma június végén", color="black", size="23", fontweight="bold")
 plt.xlabel("Év", color="black", size="20", fontweight="bold")
 plt.ylabel("Darabszám", color="black", size="20", fontweight="bold")
 plt.xticks(x_pos, x_labels)
