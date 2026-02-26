@@ -68,7 +68,7 @@ plt.figure(figsize=(12, 6))
 # X pozíciók (indexek!)
 x_pos = list(range(len(x_labels)))
 
-plt.bar(x_pos, y, color="steelblue")
+plt.bar(x_pos, y, color="green")
 
 # Értékek kiírása az oszlopok fölé
 for i, v in enumerate(y):
