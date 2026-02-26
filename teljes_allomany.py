@@ -4,7 +4,7 @@ import matplotlib.ticker as mtick
 
 # CSV / TXT beolvasása
 df = pd.read_csv(
-    r"adatbazisok\24.1.2.2. A közúti gépjárművek száma vármegye és r.txt",
+    r"adatbazisok\stadat-sza0040-24.1.2.2-hu.csv",
     sep="\t",
     encoding="utf-8"
 )
