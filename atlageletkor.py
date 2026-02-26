@@ -13,6 +13,15 @@ eletkor_df = pd.read_csv(
 )
 
 eletkor_df.columns = eletkor_df.columns.str.strip()
+def keres_oszlop(df, kulcsszavak):
+    kulcsszavak = [k.lower() for k in kulcsszavak]
+    for col in df.columns:
+        col_lower = col.lower()
+        if any(k in col_lower for k in kulcsszavak):
+            return col
+    raise ValueError(f"Nincs ilyen oszlop: {kulcsszavak}")
+
+eletkor_df.columns = eletkor_df.columns.str.strip()
 
 # Megkeressük az "átlagos kor" blokk kezdetét
 start_index = eletkor_df[eletkor_df[eletkor_df.columns[0]].astype(str).str.contains("tlagos", case=False, na=False)].index
