@@ -91,7 +91,7 @@ for i, v in enumerate(y2):
 
 plt.title("Személygépkocsik átlagéletkora június végén", color="black", size="23", fontweight="bold")
 plt.xlabel("Év", color="black", size="20", fontweight="bold")
-plt.ylabel("Év (átlagéletkor)", color="black", size="20", fontweight="bold")
+plt.ylabel("Átlagéletkor (év)", color="black", size="20", fontweight="bold")
 plt.xticks(x_pos2, x_labels2)
 plt.gca().tick_params(axis="x", colors="black")
 plt.gca().tick_params(axis="y", colors="black")
