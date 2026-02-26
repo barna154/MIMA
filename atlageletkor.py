@@ -33,7 +33,7 @@ if len(start_index) > 0:
 # Oszlopok felismerése
 oszlop_ev2 = keres_oszlop(eletkor_df, ["ev"])
 oszlop_idoszak2 = keres_oszlop(eletkor_df, ["ido"])
-oszlop_kor = keres_oszlop(eletkor_df, ["kor"])
+oszlop_kor = keres_oszlop(eletkor_df, ["szem"])
 
 # Év kitöltése
 eletkor_df[oszlop_ev2] = eletkor_df[oszlop_ev2].ffill()
