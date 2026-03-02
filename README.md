@@ -30,7 +30,7 @@ py junius_allomany.py
 </details>
 
 ### Vármegyék szerint
-
+Látható, hogy a nyugati megyékben minden második ember rendelkezik autóval és az ország legszegényebb részein is minden harmadik ember autóval jár. Az országos átlag 2025-ben 454 autó volt 1000 főnként. Érdekes módon Budapest is elmarad az országos átlagtól. Ez valószínűleg a túlsúlyban lévő tömegközlekedést választók miatt lehet.
 
 
 ![Projekt logó](kepek/varmegye_hu.png)
