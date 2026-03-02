@@ -10,23 +10,23 @@ df = pd.read_csv(
     header=1
 )
 
-# 2) Összesen sor megtalálása (az első oszlopban)
+# Összesen sor megtalálása (első oszlop)
 start = df.index[df.iloc[:, 0] == "Összesen"][0] + 1
 
-# 3) Ország összesen sor megtalálása
-end = df.index[df.iloc[:, 0].str.startswith("Ország", na=False)][0] - 1
+# Ország összesen sor megtalálása
+end = df.index[df.iloc[:, 0] == "Ország összesen"][0] - 1
 
-# 4) Kivágjuk a megyéket + Budapestet tartalmazó részt
+# Kivágjuk a megyéket + Budapestet
 osszes = df.loc[start:end].copy()
 
-# 5) Csak megyék + Budapest (a 2. oszlop alapján)
+# Csak megyék + Budapest
 mask = (
     osszes.iloc[:, 1].astype(str).str.contains("vármegye", case=False, na=False) |
     osszes.iloc[:, 1].astype(str).str.contains("főváros", case=False, na=False)
 )
 osszes = osszes[mask].copy()
 
-# 6) 2024 tisztítása (a 2024 oszlop a 24. indexű oszlop)
+# 2024 tisztítása (24. oszlop)
 osszes["2024"] = (
     osszes.iloc[:, 24]
     .astype(str)
@@ -34,10 +34,10 @@ osszes["2024"] = (
     .astype(int)
 )
 
-# 7) Rendezés
+# Rendezés
 osszes = osszes.sort_values("2024", ascending=False)
 
-# 8) Diagram
+# Diagram
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
 x_labels = osszes.iloc[:, 0]
@@ -54,17 +54,23 @@ for i, (nev, v) in enumerate(zip(x_labels, y_values)):
     nev_clean = "".join(str(nev).split())
 
     if nev_clean in special:
-        plt.text(i, v * 0.5, f"{v:,}".replace(",", " "),
-                 ha="center", va="center", fontsize=15,
-                 color="black", fontweight="bold", rotation=90)
+        plt.text(
+            i, v * 0.5, f"{v:,}".replace(",", " "),
+            ha="center", va="center",
+            fontsize=15, color="black",
+            fontweight="bold", rotation=90
+        )
     else:
-        plt.text(i, v + max_val * 0.01, f"{v:,}".replace(",", " "),
-                 ha="center", va="bottom", fontsize=15,
-                 color="black", fontweight="bold", rotation=90)
+        plt.text(
+            i, v + max_val * 0.01, f"{v:,}".replace(",", " "),
+            ha="center", va="bottom",
+            fontsize=15, color="black",
+            fontweight="bold", rotation=90
+        )
 
-plt.title("Lakónépesség vármegyénként (2024)", size=23, fontweight="bold")
-plt.xlabel("Vármegye", size=20, fontweight="bold")
-plt.ylabel("Fő", size=20, fontweight="bold")
+plt.title("Lakónépesség vármegyénként (2024)", color="black", size=23, fontweight="bold")
+plt.xlabel("Vármegye", color="black", size=20, fontweight="bold")
+plt.ylabel("Fő", color="black", size=20, fontweight="bold")
 
 plt.xticks(x_pos, x_labels, rotation=45, ha="right")
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
