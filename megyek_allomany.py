@@ -10,15 +10,20 @@ df = pd.read_csv(
     header=1
 )
 
-# A kategória sorok megtalálása
+# A személygépkocsi blokk kivágása
 start = df.index[df["Területi egység neve"] == "Személygépkocsi"][0] + 1
 end = df.index[df["Területi egység neve"] == "Autóbusz"][0] - 1
 
-# Csak a személygépkocsi blokk
 szemelyauto_df = df.loc[start:end].copy()
 
-# Csak a vármegyék
-szemelyauto_df = szemelyauto_df[szemelyauto_df["Területi egység szintje"] == "vármegye"]
+# Budapest + minden vármegye
+mask = (
+    szemelyauto_df["Területi egység szintje"].str.contains("vármegye", na=False)
+    | (szemelyauto_df["Területi egység neve"] == "Budapest")
+)
+
+szemelyauto_df = szemelyauto_df[mask]
+
 
 # 2024-es értékek
 szemelyauto_df["2024"] = (
