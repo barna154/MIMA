@@ -27,6 +27,7 @@ adatok = {
 # Átalakítás listává
 x_labels = list(adatok.keys())
 y_values = list(adatok.values())
+y_values = [round(v) for v in y_values]
 x_pos = range(len(x_labels))
 
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
@@ -47,7 +48,7 @@ for i, v in enumerate(y_values):
     )
 
 
-plt.title("Saját adatokból készült diagram", 
+plt.title("1000 főre jutó autók száma", 
           color="black", size=23, fontweight="bold")
 
 plt.xlabel("Vármegye", color="black", size=20, fontweight="bold")
