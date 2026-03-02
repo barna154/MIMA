@@ -44,7 +44,8 @@ for i, v in enumerate(ertekek):
         va="bottom",
         fontsize=10,
         color="black",
-        fontweight="bold"
+        fontweight="bold",
+        rotation=90
     )
 
 plt.title("Magyarország teljes személygépkocsi-állománya (2000–2024)",
