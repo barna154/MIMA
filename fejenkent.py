@@ -24,9 +24,10 @@ adatok = {
     "Tolna": (94757/206398)*1000
 }
 
+adatok_rendezve = dict(sorted(adatok.items(), key=lambda x: x[1], reverse=True))
 # Átalakítás listává
-x_labels = list(adatok.keys())
-y_values = list(adatok.values())
+x_labels = list(adatok_rendezve.keys()) 
+y_values = list(adatok_rendezve.values())
 y_values = [round(v) for v in y_values]
 y_values = [int(v) for v in y_values]
 x_pos = range(len(x_labels))
