@@ -67,6 +67,8 @@ py fejenkent.py
 
 ### A gépkocsiállomány átlagéletkora
 
+Az is látszik, hogy bár egyre több autó van forgalomban, a teljes állomány folyamatosan elöregedik. A trendek szerint 3 évente 1 évvel növekszik az átlagéletkor. Amellett, hogy az újabb, kis fogyasztású autók sokkal több ideig tudnak hiba mentesen forgalomban maradni, látszik, hogy a gazdasági helyzet miatt inkább a használt autók felé fordul a lakosság nagy része.
+
 ![Projekt logó](kepek/atlageletkor_hu.png)
 <div align="center">(6. ábra)</div>
 <details>
