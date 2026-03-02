@@ -4,4 +4,5 @@ Mesterséges Intelligencia Mérnöki Alkalmazásai beadandó
 
 
 
+![Projekt logó](kepek/teljes_hu.png)
 ![Projekt logó](kepek/osszes_hu.png)
