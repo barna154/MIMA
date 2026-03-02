@@ -49,12 +49,12 @@ plt.bar(x_pos, y_values, color="#8BF43F")
 for i, v in enumerate(y_values):
     plt.text(
         i,
-        v * 0.35,
+        v * 0.6,
         f"{v:,}".replace(",", " "),
         ha="center",
         va="center",
         fontsize=9,
-        color="white",
+        color="black",
         fontweight="bold",
         rotation=90
     )
