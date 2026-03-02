@@ -38,10 +38,10 @@ plt.bar(x_pos, ertekek, color=colors)
 for i, v in enumerate(ertekek):
     plt.text(
         i,
-        v + max(ertekek)*0.005,
+        v * 0.35,
         f"{v:,}".replace(",", " "),
         ha="center",
-        va="bottom",
+        va="center",
         fontsize=10,
         color="black",
         fontweight="bold",
