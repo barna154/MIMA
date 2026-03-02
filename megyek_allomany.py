@@ -49,7 +49,9 @@ plt.bar(x_pos, y_values, color=colors)
 special = ["Budapest", "Pest"]
 
 for i, (nev, v) in enumerate(zip(x_labels, y_values)):
-    if nev in special:
+    nev_clean = nev.strip()   # ← whitespace-ek eltávolítása
+
+    if nev_clean in special:
         # Budapest és Pest – felirat az oszlop belsejében
         plt.text(
             i,
@@ -75,6 +77,7 @@ for i, (nev, v) in enumerate(zip(x_labels, y_values)):
             fontweight="bold",
             rotation=90
         )
+
 
 
 plt.title("Személygépkocsi-állomány vármegyénként (2024)", 
