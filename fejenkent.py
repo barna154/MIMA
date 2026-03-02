@@ -34,21 +34,18 @@ plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 colors = ["#8BF43F", "green"]
 plt.bar(x_pos, y_values, color=colors)
 
-special = ["Budapest", "Pest"]
+for i, v in enumerate(y_values):
+    plt.text(
+        x_pos[i],
+        v + max(y_values)*0.01,
+        f"{v:.1f}",
+        ha="center",
+        va="bottom",
+        fontsize=12,
+        color="black",
+        fontweight="bold"
+    )
 
-for i, (nev, v) in enumerate(zip(x_labels, y_values)):
-    if nev in special:
-        plt.text(
-            i, v * 0.5, f"{v:,}".replace(",", " "),
-            ha="center", va="center",
-            fontsize=15, color="black", fontweight="bold", rotation=90
-        )
-    else:
-        plt.text(
-            i, v + max(y_values) * 0.01, f"{v:,}".replace(",", " "),
-            ha="center", va="bottom",
-            fontsize=15, color="black", fontweight="bold", rotation=90
-        )
 
 plt.title("Saját adatokból készült diagram", 
           color="black", size=23, fontweight="bold")
