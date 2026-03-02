@@ -10,6 +10,6 @@ Magyarországon és a világ viszonylatban is sokat változtak az autózási szo
 Megfigyelhető, hogy a 2008-as világválság hatásán kívűl országunk személygépkocsi-állománya folyamatosan bővült. Érdekes módon a növekedést a Covid-19 utáni gazdasági stagnálás és az európai autóipar visszaesése sem lassította le, sőt 2025-ben több, mint 100.000 új gépjármű lett regisztrálva az országban.
 
 ![Projekt logó](kepek/teljes_hu.png)
-<center>(1. ábra)</center>
+<div align="center">(1. ábra)</div>
 
 ![Projekt logó](kepek/osszes_hu.png)
