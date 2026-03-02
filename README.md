@@ -28,3 +28,18 @@ python teljes_allomany.py
 python junius_allomany.py
 ```
 </details>
+
+### Vármegyék szerint
+
+
+
+![Projekt logó](kepek/varmegye_hu.png)
+<div align="center">(3. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+python megyek_allomany.py
+```
+</details>
+
