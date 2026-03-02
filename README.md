@@ -5,9 +5,8 @@ Kalmár Csaba - Zsoldos Gellért László - Simon Barnabás
 
 Magyarországon és a világ viszonylatban is sokat változtak az autózási szokások az elmúlt két évtizedben. Tanulmányunkban ezeket a változásokat és az őket kiváltó okokat gyűjtöttük össze.
 
-```
+
 ### Teljes állomány
-```
 Megfigyelhető, hogy a 2008-as világválság hatásán kívűl országunk személygépkocsi-állománya folyamatosan bővült. Érdekes módon a növekedést a covid utáni gazdasági stagnálás és az európai autóipar visszaesése sem lassította le, sőt 2025-ben több, mint 100.000 új gépjármű lett regisztrálva az országban.
 
 
