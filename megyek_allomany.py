@@ -53,7 +53,7 @@ for i, v in enumerate(y_values):
         f"{v:,}".replace(",", " "),
         ha="center",
         va="center",
-        fontsize=9,
+        fontsize=15,
         color="black",
         fontweight="bold",
         rotation=90
