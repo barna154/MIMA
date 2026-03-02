@@ -65,5 +65,15 @@ py fejenkent.py
 ```
 </details>
 
+### A gépkocsiállomány átlagéletkora
 
+![Projekt logó](kepek/atlageletkor_hu.png)
+<div align="center">(6. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py atlageletkor.py
+```
+</details>
 
