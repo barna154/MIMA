@@ -1,4 +1,4 @@
-Mesterséges Intelligencia Mérnöki Alkalmazásai beadandó
+Mesterséges Intelligencia Mérnöki Alkalmazásai beadandó</b>
 Kalmár Csaba - Zsoldos Gellért László - Simon Barnabás
 
 <h1 align="center">A hazai autóállomány szerkezeti elemzése és nemzetközi összefüggései</h1>
