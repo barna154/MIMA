@@ -2,40 +2,28 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
-# 1) Beolvasás fejléc nélkül
+# 1) Beolvasás header=1
 df = pd.read_csv(
     r"adatbazisok/stadat-nep0034-22.1.2.1-hu.csv",
     sep=";",
     encoding="cp1250",
-    header=None
+    header=1
 )
 
-# 2) Fejléc beállítása
-df.columns = [
-    "nev", "szint",
-    "2001","2002","2003","2004","2005","2006","2007","2008","2009","2010",
-    "2011","2012","2013","2014","2015","2016","2017","2018","2019","2020",
-    "2021","2022","2023","2024","2025"
-]
+# 2) Összesen sor megtalálása
+start = df.index[df["Területi egység neve"] == "Összesen"][0] + 1
 
-# 3) Az ÖSSZES „Összesen” sor megkeresése
-osszes_sorok = df.index[df["nev"].astype(str).str.startswith("Összesen")].tolist()
+# 3) Ország összesen sor megtalálása
+end = df.index[df["Területi egység neve"].str.startswith("Ország")][0] - 1
 
-# A MÁSODIK Összesen blokk kell → az utolsó előtti "Összesen"
-start = osszes_sorok[-1] + 1
-
-# 4) A blokk vége: az első "Ország" sor utána
-orszag_sorok = df.index[df["nev"].astype(str).str.startswith("Orsz")].tolist()
-end = [i for i in orszag_sorok if i > start][0] - 1
-
+# 4) Kivágjuk a megyéket + Budapestet tartalmazó részt
 osszes = df.loc[start:end].copy()
 
 # 5) Csak megyék + Budapest
 mask = (
-    osszes["szint"].astype(str).str.contains("vármegye", case=False, na=False) |
-    osszes["szint"].astype(str).str.contains("főváros", case=False, na=False)
+    osszes["Területi egység szintje"].str.contains("vármegye", case=False, na=False) |
+    osszes["Területi egység szintje"].str.contains("főváros", case=False, na=False)
 )
-
 osszes = osszes[mask].copy()
 
 # 6) 2024 tisztítása
@@ -52,7 +40,7 @@ osszes = osszes.sort_values("2024", ascending=False)
 # 8) Diagram
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
-x_labels = osszes["nev"]
+x_labels = osszes["Területi egység neve"]
 y_values = osszes["2024"]
 x_pos = range(len(x_labels))
 
