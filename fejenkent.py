@@ -40,7 +40,7 @@ for i, v in enumerate(y_values):
     plt.text(
         x_pos[i],
         v + max(y_values)*0.01,
-        f"{v:.1f}",
+        f"{v:.1f}".rstrip("0").rstrip("."),
         ha="center",
         va="bottom",
         fontsize=12,
