@@ -28,6 +28,7 @@ adatok = {
 x_labels = list(adatok.keys())
 y_values = list(adatok.values())
 y_values = [round(v) for v in y_values]
+y_values = [int(v) for v in y_values]
 x_pos = range(len(x_labels))
 
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
