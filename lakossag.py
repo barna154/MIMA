@@ -10,39 +10,44 @@ df = pd.read_csv(
     header=1
 )
 
-# Csak a megyék sorai (kiszűrjük a régiókat, országot, összesítéseket)
-# A megyék szintje általában "vármegye" vagy "megye"
-mask = df["Területi egység szintje"].str.contains("megye", case=False, na=False)
-megye_df = df[mask].copy()
+# Csak az "összesen" sorok
+df = df[df["Nem"].str.lower() == "összesen"]
 
-# 2024-es lakosság kivétele
-megye_df["2024"] = (
-    megye_df["2024"]
+# Csak a megyék + Budapest
+mask = (
+    df["Területi egység szintje"].str.contains("vármegye", case=False, na=False)
+    | df["Területi egység szintje"].str.contains("főváros", case=False, na=False)
+)
+
+df = df[mask].copy()
+
+# 2024-es értékek tisztítása
+df["2024"] = (
+    df["2024"]
     .astype(str)
     .str.replace(" ", "", regex=False)
     .astype(int)
 )
 
-# Rendezés csökkenő sorrendben
-megye_df = megye_df.sort_values("2024", ascending=False)
+# Rendezés
+df = df.sort_values("2024", ascending=False)
 
 # Diagram
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
-x_labels = megye_df["Területi egység neve"]
-y_values = megye_df["2024"]
+x_labels = df["Területi egység neve"]
+y_values = df["2024"]
 x_pos = range(len(x_labels))
 
 plt.bar(x_pos, y_values, color="#8BF43F")
 
-# Feliratok az oszlopokon
 max_val = max(y_values)
 
+# Feliratok
 for i, (nev, v) in enumerate(zip(x_labels, y_values)):
-    nev_clean = "".join(nev.split())  # whitespace normalizálás
+    nev_clean = "".join(nev.split())
 
     if nev_clean in ["Budapest", "Pest"]:
-        # magas oszlopok → belső felirat
         plt.text(
             i,
             v * 0.5,
@@ -55,7 +60,6 @@ for i, (nev, v) in enumerate(zip(x_labels, y_values)):
             rotation=90
         )
     else:
-        # normál megyék → felirat fölé
         plt.text(
             i,
             v + max_val * 0.01,
