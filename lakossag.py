@@ -10,25 +10,25 @@ df = pd.read_csv(
     header=1
 )
 
-# 2) Összesen sor megtalálása
-start = df.index[df["Területi egység neve"] == "Összesen"][0] + 1
+# 2) Összesen sor megtalálása (az első oszlopban)
+start = df.index[df.iloc[:, 0] == "Összesen"][0] + 1
 
 # 3) Ország összesen sor megtalálása
-end = df.index[df["Területi egység neve"].str.startswith("Ország")][0] - 1
+end = df.index[df.iloc[:, 0].str.startswith("Ország", na=False)][0] - 1
 
 # 4) Kivágjuk a megyéket + Budapestet tartalmazó részt
 osszes = df.loc[start:end].copy()
 
-# 5) Csak megyék + Budapest
+# 5) Csak megyék + Budapest (a 2. oszlop alapján)
 mask = (
-    osszes["Területi egység szintje"].str.contains("vármegye", case=False, na=False) |
-    osszes["Területi egység szintje"].str.contains("főváros", case=False, na=False)
+    osszes.iloc[:, 1].astype(str).str.contains("vármegye", case=False, na=False) |
+    osszes.iloc[:, 1].astype(str).str.contains("főváros", case=False, na=False)
 )
 osszes = osszes[mask].copy()
 
-# 6) 2024 tisztítása
+# 6) 2024 tisztítása (a 2024 oszlop a 24. indexű oszlop)
 osszes["2024"] = (
-    osszes["2024"]
+    osszes.iloc[:, 24]
     .astype(str)
     .str.replace(" ", "", regex=False)
     .astype(int)
@@ -40,7 +40,7 @@ osszes = osszes.sort_values("2024", ascending=False)
 # 8) Diagram
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
-x_labels = osszes["Területi egység neve"]
+x_labels = osszes.iloc[:, 0]
 y_values = osszes["2024"]
 x_pos = range(len(x_labels))
 
@@ -51,7 +51,7 @@ max_val = max(y_values)
 special = ["Budapest", "Pest"]
 
 for i, (nev, v) in enumerate(zip(x_labels, y_values)):
-    nev_clean = "".join(nev.split())
+    nev_clean = "".join(str(nev).split())
 
     if nev_clean in special:
         plt.text(i, v * 0.5, f"{v:,}".replace(",", " "),
