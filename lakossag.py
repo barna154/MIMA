@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
-# CSV beolvasása
+# CSV beolvasása – a te paramétereiddel
 df = pd.read_csv(
     r"adatbazisok/stadat-nep0034-22.1.2.1-hu.csv",
     sep=";",
@@ -10,44 +10,49 @@ df = pd.read_csv(
     header=1
 )
 
-# Csak az "összesen" sorok
-df = df[df["Nem"].str.lower() == "összesen"]
+# --- 1) Megkeressük az Összesen blokkot ---
+start = df.index[df["Területi egység neve"] == "Összesen"][0] + 1
+end = df.index[df["Területi egység neve"] == "Ország összesen"][0] - 1
 
-# Csak a megyék + Budapest
+osszes_df = df.loc[start:end].copy()
+
+# --- 2) Csak a megyék + Budapest megtartása ---
 mask = (
-    df["Területi egység szintje"].str.contains("vármegye", case=False, na=False)
-    | df["Területi egység szintje"].str.contains("főváros", case=False, na=False)
+    osszes_df["Területi egység szintje"].str.contains("vármegye", case=False, na=False)
+    | osszes_df["Területi egység szintje"].str.contains("főváros", case=False, na=False)
 )
 
-df = df[mask].copy()
+osszes_df = osszes_df[mask].copy()
 
-# 2024-es értékek tisztítása
-df["2024"] = (
-    df["2024"]
+# --- 3) 2024-es értékek tisztítása ---
+osszes_df["2024"] = (
+    osszes_df["2024"]
     .astype(str)
     .str.replace(" ", "", regex=False)
     .astype(int)
 )
 
-# Rendezés
-df = df.sort_values("2024", ascending=False)
+# --- 4) Rendezés ---
+osszes_df = osszes_df.sort_values("2024", ascending=False)
 
-# Diagram
+# --- 5) Diagram ---
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
-x_labels = df["Területi egység neve"]
-y_values = df["2024"]
+x_labels = osszes_df["Területi egység neve"]
+y_values = osszes_df["2024"]
 x_pos = range(len(x_labels))
 
 plt.bar(x_pos, y_values, color="#8BF43F")
 
 max_val = max(y_values)
 
-# Feliratok
-for i, (nev, v) in enumerate(zip(x_labels, y_values)):
-    nev_clean = "".join(nev.split())
+# Feliratok: Budapest + Pest belül, a többi fölött
+special = ["Budapest", "Pest"]
 
-    if nev_clean in ["Budapest", "Pest"]:
+for i, (nev, v) in enumerate(zip(x_labels, y_values)):
+    nev_clean = "".join(nev.split())  # whitespace normalizálás
+
+    if nev_clean in special:
         plt.text(
             i,
             v * 0.5,
