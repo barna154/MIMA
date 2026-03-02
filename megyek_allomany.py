@@ -49,11 +49,11 @@ plt.bar(x_pos, y_values, color=colors)
 # Feliratok az oszlopokon belül
 for i, v in enumerate(y_values):
     plt.text(
-        i,
-        v * 1.5,
+        x_pos[i],
+        v + max(y)*0.01,
         f"{v:,}".replace(",", " "),
         ha="center",
-        va="center",
+        va="bottom",
         fontsize=15,
         color="black",
         fontweight="bold",
