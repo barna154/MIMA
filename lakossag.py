@@ -4,7 +4,7 @@ import matplotlib.ticker as mtick
 df = pd.read_csv(
     r"adatbazisok\stadat-nep0034-22.1.2.1-hu.csv",
     sep=";",
-    encoding="latin2",   # <<< EZ A LÉNYEG
+    encoding="iso-8859-2",   # <<< EZ A LÉNYEG
     header=1
 )
 
