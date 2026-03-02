@@ -45,12 +45,23 @@ py megyek_allomany.py
 
 
 ![Projekt logó](kepek/nepesseg.png)
-<div align="center">(3. ábra)</div>
+<div align="center">(4. ábra)</div>
 <details>
 <summary>Futtatás</summary>
 
 ``` bash
 py lakossag.py
+```
+</details>
+
+
+![Projekt logó](kepek/arany.png)
+<div align="center">(5. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py fejenkent.py
 ```
 </details>
 
