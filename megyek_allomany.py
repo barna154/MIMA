@@ -50,7 +50,7 @@ plt.bar(x_pos, y_values, color=colors)
 for i, v in enumerate(y_values):
     plt.text(
         x_pos[i],
-        v + max(y)*0.01,
+        v + max(y_values)*0.01,
         f"{v:,}".replace(",", " "),
         ha="center",
         va="bottom",
