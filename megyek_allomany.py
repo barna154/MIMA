@@ -5,8 +5,9 @@ import matplotlib.ticker as mtick
 # CSV beolvasása
 df = pd.read_csv(
     r"adatbazisok\stadat-sza0040-24.1.2.2-hu.csv",
-    sep="\t",          # a te fájlod TAB-os!
-    encoding="utf-8",
+    sep=";",
+    encoding="cp1250",
+    header=1
 )
 
 # A kategória sorok megtalálása
