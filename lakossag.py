@@ -9,18 +9,15 @@ df = pd.read_csv(
     header=1
 )
 
-# --- 1) Megkeressük az Összesen blokk kezdetét ---
-# A sor, ahol a Területi egység neve oszlopban szerepel valami, de a következő oszlopok üresek
-# Ez a szétesett „Összesen” sor
-start = df.index[(df["Területi egység neve"].notna()) &
-                 (df["Területi egység szintje"].isna())].tolist()[0] + 1
+# Összesen blokk kezdete
+start = df.index[df["Területi egység neve"] == "Összesen"][0] + 1
 
-# --- 2) Megkeressük az Ország összesen sort ---
-end = df.index[df["Területi egység neve"].str.contains("Orsz", na=False)].tolist()[0] - 1
+# Összesen blokk vége
+end = df.index[df["Területi egység neve"] == "Ország összesen"][0] - 1
 
 osszes_df = df.loc[start:end].copy()
 
-# --- 3) Csak megyék + Budapest ---
+# Csak megyék + Budapest
 mask = (
     osszes_df["Területi egység szintje"].str.contains("vármegye", case=False, na=False)
     | osszes_df["Területi egység szintje"].str.contains("főváros", case=False, na=False)
@@ -28,7 +25,7 @@ mask = (
 
 osszes_df = osszes_df[mask].copy()
 
-# --- 4) 2024 tisztítása ---
+# 2024 tisztítása
 osszes_df["2024"] = (
     osszes_df["2024"]
     .astype(str)
@@ -36,10 +33,10 @@ osszes_df["2024"] = (
     .astype(int)
 )
 
-# --- 5) Rendezés ---
+# Rendezés
 osszes_df = osszes_df.sort_values("2024", ascending=False)
 
-# --- 6) Diagram ---
+# Diagram
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
 x_labels = osszes_df["Területi egység neve"]
