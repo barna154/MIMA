@@ -38,7 +38,7 @@ plt.bar(x_pos, ertekek, color=colors)
 for i, v in enumerate(ertekek):
     plt.text(
         i,
-        v * 0.1,
+        v * 0.6,
         f"{v:,}".replace(",", " "),
         ha="center",
         va="center",
