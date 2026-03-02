@@ -56,7 +56,7 @@ plt.title("1000 főre jutó autók száma",
           color="black", size=23, fontweight="bold")
 
 plt.xlabel("Vármegye", color="black", size=20, fontweight="bold")
-plt.ylabel("Érték", color="black", size=20, fontweight="bold")
+plt.ylabel("Darabszám", color="black", size=20, fontweight="bold")
 
 plt.xticks(x_pos, x_labels, rotation=45, ha="right")
 plt.gca().yaxis.set_major_formatter(mtick.StrMethodFormatter("{x:,.0f}"))
