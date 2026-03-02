@@ -4,37 +4,37 @@ import matplotlib.ticker as mtick
 
 # CSV beolvasása
 df = pd.read_csv(
-    r"adatbazisok\stadat-sza0040-24.1.2.2-hu.csv",
-    sep=";",
-    encoding="cp1250",
-    header=1
+    r"adatbazisok\24.1.2.2.csv",
+    sep="\t",          # a te fájlod TAB-os!
+    encoding="utf-8",
 )
 
-# Csak a személygépkocsi kategória
-szemelyauto_df = df[df["Járműkategória"] == "Személygépkocsi"]
+# A kategória sorok megtalálása
+start = df.index[df["Területi egység neve"] == "Személygépkocsi"][0] + 1
+end = df.index[df["Területi egység neve"] == "Autóbusz"][0] - 1
+
+# Csak a személygépkocsi blokk
+szemelyauto_df = df.loc[start:end].copy()
 
 # Csak a vármegyék
-megye_df = szemelyauto_df[szemelyauto_df["Területi egység szintje"] == "vármegye"]
+szemelyauto_df = szemelyauto_df[szemelyauto_df["Területi egység szintje"] == "vármegye"]
 
 # 2024-es értékek
-megye_2024 = megye_df[["Területi egység neve", "2024"]].copy()
-
-# Számformátum tisztítása
-megye_2024["2024"] = (
-    megye_2024["2024"]
+szemelyauto_df["2024"] = (
+    szemelyauto_df["2024"]
     .astype(str)
     .str.replace(" ", "", regex=False)
     .astype(int)
 )
 
 # Rendezés
-megye_2024 = megye_2024.sort_values("2024", ascending=False)
+szemelyauto_df = szemelyauto_df.sort_values("2024", ascending=False)
 
 # Diagram
 plt.figure(figsize=(16, 8), facecolor="#DEDCDC")
 
-x_labels = megye_2024["Területi egység neve"]
-y_values = megye_2024["2024"]
+x_labels = szemelyauto_df["Területi egység neve"]
+y_values = szemelyauto_df["2024"]
 x_pos = range(len(x_labels))
 
 plt.bar(x_pos, y_values, color="#8BF43F")
