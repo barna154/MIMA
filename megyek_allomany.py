@@ -43,13 +43,14 @@ x_labels = szemelyauto_df["Területi egység neve"]
 y_values = szemelyauto_df["2024"]
 x_pos = range(len(x_labels))
 
-plt.bar(x_pos, y_values, color="#8BF43F")
+colors = ["#8BF43F", "green"]
+plt.bar(x_pos, y_values, color=colors)
 
 # Feliratok az oszlopokon belül
 for i, v in enumerate(y_values):
     plt.text(
         i,
-        v * 0.6,
+        v * 0.75,
         f"{v:,}".replace(",", " "),
         ha="center",
         va="center",
