@@ -5,16 +5,17 @@ import matplotlib.ticker as mtick
 # CSV beolvasása
 df = pd.read_csv(
     r"adatbazisok\stadat-nep0034-22.1.2.1-hu.csv",
-    sep=";",          # a feltöltött fájl TAB szeparátoros
+    sep=";",
     encoding="cp1250",
     header=1
 )
 
+# --- OSZLOPNEVEK TISZTÍTÁSA ---
+df.columns = df.columns.str.strip().str.replace("\ufeff", "", regex=False)
+
 # --- Összesen blokk kivágása ---
 start = df.index[df["Területi egység neve"] == "Összesen"][0] + 1
 
-# A blokk addig tart, amíg újra nem jön egy üres sor vagy a fájl vége
-# (a feltöltött fájlban a következő blokk már nincs, így a végéig mehet)
 lakossag_df = df.loc[start:].copy()
 
 # Csak Budapest + vármegyék
