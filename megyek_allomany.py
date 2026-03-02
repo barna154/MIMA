@@ -27,7 +27,7 @@ megye_2024["2024"] = (
     .astype(int)
 )
 
-# Rendezés csökkenő sorrendben (szebb diagram)
+# Rendezés csökkenő sorrendben
 megye_2024 = megye_2024.sort_values("2024", ascending=False)
 
 # Diagram
