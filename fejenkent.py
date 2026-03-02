@@ -37,16 +37,18 @@ colors = ["#8BF43F", "green"]
 plt.bar(x_pos, y_values, color=colors)
 
 for i, v in enumerate(y_values):
+    label = f"{v:.1f}".rstrip("0").rstrip(".")
     plt.text(
         x_pos[i],
         v + max(y_values)*0.01,
-        f"{v:.1f}".rstrip("0").rstrip("."),
+        label,
         ha="center",
         va="bottom",
         fontsize=12,
         color="black",
         fontweight="bold"
     )
+
 
 
 plt.title("1000 főre jutó autók száma", 
