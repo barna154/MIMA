@@ -19,7 +19,7 @@ py teljes_allomany.py
 ```
 </details>
 
-![Projekt logó](kepek/osszs_hu.png)
+![Projekt logó](kepek/osszes_hu.png)
 <div align="center">(2. ábra)</div>
 <details>
 <summary>Futtatás</summary>
