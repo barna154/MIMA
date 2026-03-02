@@ -43,3 +43,16 @@ py megyek_allomany.py
 ```
 </details>
 
+
+![Projekt logó](kepek/nepesseg.png)
+<div align="center">(3. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py lakossag.py
+```
+</details>
+
+
+
