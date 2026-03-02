@@ -31,7 +31,8 @@ ertekek = (
 plt.figure(figsize=(14, 7), facecolor="#DEDCDC")
 x_pos = range(len(evszamok))
 
-plt.bar(x_pos, ertekek, color="#8BF43F")
+colors = ["#8BF43F", "green"]
+plt.bar(x_pos, ertekek, color=colors)
 
 # Feliratok az oszlopok tetején
 for i, v in enumerate(ertekek):
