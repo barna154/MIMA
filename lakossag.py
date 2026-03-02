@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
-# 1) CSV beolvasása fejléc nélkül
+# 1) Beolvasás fejléc nélkül
 df = pd.read_csv(
     r"adatbazisok/stadat-nep0034-22.1.2.1-hu.csv",
     sep=";",
@@ -18,11 +18,15 @@ df.columns = [
     "2021","2022","2023","2024","2025"
 ]
 
-# 3) Összesen blokk kezdete
-start = df.index[df["nev"].astype(str).str.startswith("Összesen")][0] + 1
+# 3) Az ÖSSZES „Összesen” sor megkeresése
+osszes_sorok = df.index[df["nev"].astype(str).str.startswith("Összesen")].tolist()
 
-# 4) Összesen blokk vége (Ország összesen előtt)
-end = df.index[df["nev"].astype(str).str.startswith("Orsz")][0] - 1
+# A MÁSODIK Összesen blokk kell → az utolsó előtti "Összesen"
+start = osszes_sorok[-1] + 1
+
+# 4) A blokk vége: az első "Ország" sor utána
+orszag_sorok = df.index[df["nev"].astype(str).str.startswith("Orsz")].tolist()
+end = [i for i in orszag_sorok if i > start][0] - 1
 
 osszes = df.loc[start:end].copy()
 
@@ -34,7 +38,7 @@ mask = (
 
 osszes = osszes[mask].copy()
 
-# 6) 2024-es értékek tisztítása
+# 6) 2024 tisztítása
 osszes["2024"] = (
     osszes["2024"]
     .astype(str)
@@ -56,7 +60,6 @@ plt.bar(x_pos, y_values, color="#8BF43F")
 
 max_val = max(y_values)
 
-# Budapest + Pest belső felirat
 special = ["Budapest", "Pest"]
 
 for i, (nev, v) in enumerate(zip(x_labels, y_values)):
