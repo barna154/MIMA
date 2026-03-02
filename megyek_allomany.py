@@ -4,7 +4,7 @@ import matplotlib.ticker as mtick
 
 # CSV beolvasása
 df = pd.read_csv(
-    r"adatbazisok\24.1.2.2.csv",
+    r"adatbazisok\stadat-sza0040-24.1.2.2-hu.csv",
     sep="\t",          # a te fájlod TAB-os!
     encoding="utf-8",
 )
