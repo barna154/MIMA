@@ -42,7 +42,7 @@ for i, v in enumerate(ertekek):
         f"{v:,}".replace(",", " "),
         ha="center",
         va="center",
-        fontsize=10,
+        fontsize=15,
         color="black",
         fontweight="bold",
         rotation=90
