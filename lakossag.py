@@ -7,7 +7,7 @@ df = pd.read_csv(
     r"adatbazisok/stadat-nep0034-22.1.2.1-hu.csv",
     sep=";",
     encoding="cp1250",
-    header=1
+    header=0
 )
 
 # --- 1) Megkeressük az Összesen blokkot ---
