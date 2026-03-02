@@ -4,7 +4,7 @@ import matplotlib.ticker as mtick
 
 # CSV beolvasása
 df = pd.read_csv(
-    r"adatbazisok/nep0034.csv",
+    r"adatbazisok/stadat-nep0034-22.1.2.1-hu.csv",
     sep=";",          # a KSH népesség CSV általában pontosvesszős
     encoding="utf-8",
     header=0
