@@ -59,14 +59,16 @@ colors = ["#8BF43F", "green"]
 plt.bar(x_pos, y, color=colors)
 for i, v in enumerate(y):
     plt.text(
-        x_pos[i],
-        v + max(y)*0.01,
-        f"{v:,}".replace(",", " "),
-        ha="center",
-        va="bottom",
-        fontsize=12,
-        color="black"
-    )
+            i,
+            v * 0.5,
+            f"{v:,}".replace(",", " "),
+            ha="center",
+            va="center",
+            fontsize=15,
+            color="black",
+            fontweight="bold",
+            rotation=90
+        )
 
 plt.title("Személygépkocsik száma június végén", color="black", size="23", fontweight="bold")
 plt.xlabel("Év", color="black", size="20", fontweight="bold")
