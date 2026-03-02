@@ -5,9 +5,9 @@ import matplotlib.ticker as mtick
 # CSV beolvasása
 df = pd.read_csv(
     r"adatbazisok\stadat-nep0034-22.1.2.1-hu.csv",
-    sep="\t",          # a feltöltött fájl TAB szeparátoros
-    encoding="utf-8",  # a fájl UTF-8
-    header=0
+    sep=";",          # a feltöltött fájl TAB szeparátoros
+    encoding="cp1250",
+    header=1
 )
 
 # --- Összesen blokk kivágása ---
