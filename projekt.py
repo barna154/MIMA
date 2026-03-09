@@ -28,6 +28,12 @@ for col in data.columns[1:]:
 data.head(32)
 data.info()
 
+
+data['uj_auto_real'] = data['uj_auto'] * (1 + np.random.normal(0, 0.1, size=len(data)))
+data['uj_auto_real'] = data['uj_auto_real'].round().astype(int)
+
+data['eletkor_real'] = data['eletkor'] + np.random.normal(0, 2, size=len(data))
+
 numeric_columns = data.select_dtypes(include=['int', 'float'])
 new_data = data[numeric_columns.columns]
 
