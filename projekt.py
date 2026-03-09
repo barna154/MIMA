@@ -14,7 +14,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
 data = pd.read_csv(
-    r"adatbazisok\sadatok2024.csv",
+    r"adatbazisok\adatok2024.csv",
     sep=";",
     encoding="cp1250",
     header=0
@@ -29,19 +29,12 @@ data.head(32)
 data.info()
 
 
-data['uj_auto_real'] = data['uj auto'] * (1 + np.random.normal(0, 0.1, size=len(data)))
-data['uj_auto_real'] = data['uj_auto_real'].round().astype(int)
-
-data['eletkor_real'] = data['eletkor'] + np.random.normal(0, 2, size=len(data))
 
 numeric_columns = data.select_dtypes(include=['int', 'float'])
 new_data = data[numeric_columns.columns]
 
 
 corr_matrix = new_data.corr()
-
-corr_matrix = corr_matrix.drop(['uj auto', 'eletkor'], axis=0, errors='ignore')
-corr_matrix = corr_matrix.drop(['uj auto', 'eletkor'], axis=1, errors='ignore')
 
 plt.figure(figsize=(10, 8))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
