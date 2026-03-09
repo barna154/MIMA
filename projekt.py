@@ -20,6 +20,11 @@ data = pd.read_csv(
     header=1
 )
 
+data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
+for col in data.columns[1:]:
+    data[col] = data[col].str.replace(' ', '').str.replace(',', '.').astype(float)
+
+
 data.head(32)
 data.info()
 
