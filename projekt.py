@@ -31,8 +31,9 @@ data.info()
 
 for col in data.columns:
     data[col] = data[col].astype(str).str.replace(' ', '').str.replace(',', '.')
-    data[col] = pd.to_numeric(data[col], errors='ignore')
+    data[col] = pd.to_numeric(data[col], errors='coerce')
 
+    
 numeric_columns = data.select_dtypes(include=['int', 'float'])
 new_data = data[numeric_columns.columns]
 
