@@ -100,7 +100,7 @@ sns.heatmap(
     annot=True,
     cmap='viridis',
     linewidths=0.5,
-    annot_kws={"size": 8}  # kisebb számok a cellákban
+    annot_kws={"size": 8},  # kisebb számok a cellákban
     square=False
 )
 
