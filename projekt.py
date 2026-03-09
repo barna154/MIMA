@@ -98,9 +98,10 @@ plt.figure(figsize=(9, 7))
 sns.heatmap(
     corr_matrix_renamed,
     annot=True,
-    cmap='icefire',
+    cmap='viridis',
     linewidths=0.5,
     annot_kws={"size": 8}  # kisebb számok a cellákban
+    square=False
 )
 
 plt.xticks(fontsize=8)
