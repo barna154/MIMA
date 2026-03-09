@@ -20,5 +20,5 @@ data = pd.read_csv(
     header=1
 )
 
-data.head(30)
-#print(data)
+a = data.head(32)
+print(a)
