@@ -13,6 +13,6 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-data = pd.read_csv('adatbazisok\2024.csv')
+data = pd.read_csv('adatbazisok\sadatok2024.csv')
 
 data.head()
