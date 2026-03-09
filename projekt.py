@@ -20,28 +20,38 @@ data = pd.read_csv(
     header=0
 )
 
+# --- Felesleges Unnamed oszlopok törlése ---
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
-for col in data.columns[1:]:
-    data[col] = data[col].str.replace(' ', '').str.replace(',', '.').astype(float)
 
-
-data.head(32)
-data.info()
-print(data[['Nepesseg', 'auto allomany', 'uj auto', 'hasznalt']].head(10))
-
+# --- Minden oszlop tisztítása és konvertálása ---
 for col in data.columns:
-    data[col] = data[col].astype(str).str.replace(' ', '').str.replace(',', '.')
+    data[col] = (
+        data[col]
+        .astype(str)
+        .str.replace(' ', '')
+        .str.replace(',', '.')
+    )
     data[col] = pd.to_numeric(data[col], errors='coerce')
 
+# --- Eredeti adatok ellenőrzése ---
+print(data[['Nepesseg', 'auto allomany', 'uj auto', 'hasznalt']].head(10))
 
+# --- Per capita mutatók létrehozása ---
+data['auto_per_capita'] = data['auto allomany'] / data['Nepesseg']
+data['uj_auto_per_capita'] = data['uj auto'] / data['Nepesseg']
+data['hasznalt_per_capita'] = data['hasznalt'] / data['Nepesseg']
+
+# --- Csak numerikus oszlopok kiválasztása ---
 numeric_columns = data.select_dtypes(include=['int', 'float'])
 new_data = data[numeric_columns.columns]
 
+# --- Korrelációs mátrix ---
 corr_matrix = new_data.corr()
 
-plt.figure(figsize=(10, 8))
+# --- Heatmap ---
+plt.figure(figsize=(12, 10))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-plt.title('Correlation Heatmap')
+plt.title('Correlation Heatmap (Per Capita Mutatókkal)')
 plt.show()
 
 
