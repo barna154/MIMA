@@ -21,4 +21,7 @@ data = pd.read_csv(
 )
 
 a = data.head(32)
-print(a)
+
+b = data.info()
+print(b)
+
