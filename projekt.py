@@ -108,6 +108,6 @@ plt.title('Korrelációs heatmap', fontsize=12, pad=3)
 
 # <<< A LÉNYEG: az egész ábrát feljebb toljuk >>>
 pos = ax.get_position()
-ax.set_position([pos.x0, pos.y0 + 0.12, pos.width, pos.height])
+ax.set_position([pos.x0, pos.y0 + 0.04, pos.width, pos.height])
 
 plt.show()
