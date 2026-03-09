@@ -93,16 +93,18 @@ label_map = {
 corr_matrix = new_data.corr()
 corr_matrix_renamed = corr_matrix.rename(index=label_map, columns=label_map)
 
-plt.figure(figsize=(9, 7))
+fig, ax = plt.subplots(figsize=(9, 7))
 
 sns.heatmap(
     corr_matrix_renamed,
     annot=True,
-    cmap='viridis',
+    cmap='icefire',
     linewidths=0.5,
-    annot_kws={"size": 8},  # kisebb számok a cellákban
-    square=False
+    annot_kws={"size": 8},
+    ax=ax
 )
+
+ax.set_aspect("auto")
 
 plt.xticks(fontsize=8)
 plt.yticks(fontsize=8)
