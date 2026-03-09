@@ -93,7 +93,7 @@ label_map = {
 corr_matrix = new_data.corr()
 corr_matrix_renamed = corr_matrix.rename(index=label_map, columns=label_map)
 
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(12, 8))
 sns.heatmap(corr_matrix_renamed, annot=True, cmap='viridis', linewidths=0.5)
 plt.title('Korrelációs heatmap', fontsize=16, pad=5)
 
