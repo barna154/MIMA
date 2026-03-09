@@ -104,14 +104,10 @@ sns.heatmap(
     ax=ax
 )
 
-ax.set_aspect("auto")
-
-plt.xticks(fontsize=8)
-plt.yticks(fontsize=8)
-
 plt.title('Korrelációs heatmap', fontsize=12, pad=3)
 
-plt.tight_layout()
-plt.subplots_adjust(top=0.92, bottom=0.08)
+# <<< A LÉNYEG: az egész ábrát feljebb toljuk >>>
+pos = ax.get_position()
+ax.set_position([pos.x0, pos.y0 + 0.12, pos.width, pos.height])
 
 plt.show()
