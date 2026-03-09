@@ -78,11 +78,22 @@ if "Vármegye" not in numeric_columns:
 
 new_data = data[numeric_columns]
 
+# --- Szép magyar feliratok ---
+label_map = {
+    "Nepesseg": "Népesség",
+    "atlag kereset": "Átlagkereset",
+    "auto allomany": "Autóállomány",
+    "uj auto": "Új autó",
+    "hasznalt": "Használt autó",
+    "eletkor": "Átlag életkor",
+    "ev": "Év"
+}
+
 # --- Korreláció ---
 corr_matrix = new_data.corr()
+corr_matrix_renamed = corr_matrix.rename(index=label_map, columns=label_map)
 
-# --- Heatmap ---
 plt.figure(figsize=(14, 12))
 sns.heatmap(corr_matrix, annot=True, cmap='viridis', linewidths=0.5)
-plt.title('Correlation Heatmap (Megyék rangsorolva kereset szerint, per capita mutatókkal)')
+plt.title('Korrelációs heatmap')
 plt.show()
