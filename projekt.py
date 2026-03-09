@@ -13,12 +13,21 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-data = pd.read_csv(
-    r"adatbazisok\adatok2024.csv",
-    sep=";",
-    encoding="cp1250",
-    header=0
-)
+files = [
+    r"adatbazisok\adatok2023.csv",
+    r"adatbazisok\adatok2024.csv"
+]
+
+dfs = []
+
+# --- Mindkét év beolvasása és év oszlop hozzáadása ---
+for f in files:
+    df = pd.read_csv(f, sep=";", encoding="cp1250", header=0)
+    df["ev"] = f[-8:-4]   # pl. "2023" vagy "2024"
+    dfs.append(df)
+
+# --- Összefűzés ---
+data = pd.concat(dfs, ignore_index=True)
 
 # --- Felesleges Unnamed oszlopok törlése ---
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
@@ -34,7 +43,7 @@ for col in data.columns:
     data[col] = pd.to_numeric(data[col], errors='coerce')
 
 # --- Eredeti adatok ellenőrzése ---
-print(data[['Nepesseg', 'auto allomany', 'uj auto', 'hasznalt']].head(10))
+print(data[['Nepesseg', 'auto allomany', 'uj auto', 'hasznalt', 'ev']].head(10))
 
 # --- Csak numerikus oszlopok kiválasztása ---
 numeric_columns = data.select_dtypes(include=['int', 'float'])
@@ -46,8 +55,5 @@ corr_matrix = new_data.corr()
 # --- Heatmap ---
 plt.figure(figsize=(12, 10))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-plt.title('Correlation Heatmap (Per Capita Mutatókkal)')
+plt.title('Correlation Heatmap (2023 + 2024)')
 plt.show()
-
-
-
