@@ -94,9 +94,21 @@ corr_matrix = new_data.corr()
 corr_matrix_renamed = corr_matrix.rename(index=label_map, columns=label_map)
 
 plt.figure(figsize=(9, 7))
-sns.heatmap(corr_matrix_renamed, annot=True, cmap='viridis', linewidths=0.5)
-plt.title('Korrelációs heatmap', fontsize=16, pad=5)
+
+sns.heatmap(
+    corr_matrix_renamed,
+    annot=True,
+    cmap='icefire',
+    linewidths=0.5,
+    annot_kws={"size": 8}  # kisebb számok a cellákban
+)
+
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
+
+plt.title('Korrelációs heatmap', fontsize=12, pad=3)
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.92, bottom=0.08)
+
 plt.show()
