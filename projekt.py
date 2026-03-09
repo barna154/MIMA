@@ -52,8 +52,8 @@ data["Megye"] = megye_col
 
 # --- Per capita mutatók ---
 data['Autó/fő'] = data['auto allomany'] / data['Nepesseg']
-data['Új autó/fő'] = data['uj auto'] / data['Nepesseg']
-data['Használt autó/fő'] = data['hasznalt'] / data['Nepesseg']
+data['Új/fő'] = data['uj auto'] / data['Nepesseg']
+data['Használt/fő'] = data['hasznalt'] / data['Nepesseg']
 
 # --- Megyék rangsorolása átlagkereset alapján ---
 kereset_rang = (
@@ -83,8 +83,8 @@ label_map = {
     "Nepesseg": "Népesség",
     "atlag kereset": "Átlagkereset",
     "auto allomany": "Autóállomány",
-    "uj auto": "Új autó",
-    "hasznalt": "Használt autó",
+    "uj auto": "Új",
+    "hasznalt": "Használt",
     "eletkor": "Átlag életkor",
     "ev": "Év"
 }
