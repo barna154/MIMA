@@ -51,9 +51,9 @@ for col in data.columns:
 data["Megye"] = megye_col
 
 # --- Per capita mutatók ---
-data['auto_per_capita'] = data['auto allomany'] / data['Nepesseg']
-data['uj_auto_per_capita'] = data['uj auto'] / data['Nepesseg']
-data['hasznalt_per_capita'] = data['hasznalt'] / data['Nepesseg']
+data['Autó/fő'] = data['auto allomany'] / data['Nepesseg']
+data['Új autó/fő'] = data['uj auto'] / data['Nepesseg']
+data['Használt autó/fő'] = data['hasznalt'] / data['Nepesseg']
 
 # --- Megyék rangsorolása átlagkereset alapján ---
 kereset_rang = (
