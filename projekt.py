@@ -108,7 +108,7 @@ sns.heatmap(
     ax=ax
 )
 
-plt.title('Korrelációs heatmap', fontsize=12, pad=3)
+plt.title('Korrelációs heatmap', fontsize=16, pad=5)
 
 # --- Az egész ábrát feljebb toljuk ---
 pos = ax.get_position()
