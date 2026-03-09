@@ -21,3 +21,4 @@ data = pd.read_csv(
 )
 
 data.head()
+print(data)
