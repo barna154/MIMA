@@ -89,7 +89,7 @@ label_map = {
     "Autó/fő": "Autó / fő",
     "Új/fő": "Új / fő",
     "Használt/fő": "Használt / fő",
-    "Vármegye": "Vármegye rang"
+    "Vármegye": "Vármegye"
 }
 
 # --- Korreláció ---
