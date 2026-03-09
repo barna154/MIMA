@@ -98,7 +98,7 @@ fig, ax = plt.subplots(figsize=(9, 7))
 sns.heatmap(
     corr_matrix_renamed,
     annot=True,
-    cmap='icefire',
+    cmap='viridis',
     linewidths=0.5,
     annot_kws={"size": 8},
     ax=ax
