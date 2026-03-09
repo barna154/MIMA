@@ -13,6 +13,12 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# --- Fájlok ---
 files = [
     r"adatbazisok\adatok2023.csv",
     r"adatbazisok\adatok2024.csv"
@@ -20,39 +26,34 @@ files = [
 
 dfs = []
 
-# --- Mindkét év beolvasása és év oszlop hozzáadása ---
 for f in files:
-    df = pd.read_csv(f, sep=";", encoding="cp1250", header=0)
-    df["ev"] = f[-8:-4]   # pl. "2023" vagy "2024"
+    df = pd.read_csv(f, sep=";", encoding="cp1250")
+    df["ev"] = f[-8:-4]   # év hozzáadása
     dfs.append(df)
 
 # --- Összefűzés ---
 data = pd.concat(dfs, ignore_index=True)
 
-# --- Felesleges Unnamed oszlopok törlése ---
+# --- Unnamed oszlopok törlése ---
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
 
-# --- Minden oszlop tisztítása és konvertálása ---
+# --- Tisztítás: minden whitespace eltávolítása ---
 for col in data.columns:
     data[col] = (
         data[col]
         .astype(str)
-        .str.replace(' ', '')
+        .str.replace(r'\s+', '', regex=True)   # <<< EZ A FONTOS!
         .str.replace(',', '.')
     )
     data[col] = pd.to_numeric(data[col], errors='coerce')
 
-# --- Eredeti adatok ellenőrzése ---
-print(data[['Nepesseg', 'auto allomany', 'uj auto', 'hasznalt', 'ev']].head(10))
+# --- Ellenőrzés ---
+print(data.head())
 
-# --- Csak numerikus oszlopok kiválasztása ---
+# --- Korreláció ---
 numeric_columns = data.select_dtypes(include=['int', 'float'])
-new_data = data[numeric_columns.columns]
+corr_matrix = numeric_columns.corr()
 
-# --- Korrelációs mátrix ---
-corr_matrix = new_data.corr()
-
-# --- Heatmap ---
 plt.figure(figsize=(12, 10))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
 plt.title('Correlation Heatmap (2023 + 2024)')
