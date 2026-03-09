@@ -20,8 +20,18 @@ data = pd.read_csv(
     header=1
 )
 
-a = data.head(32)
+data.head(32)
+data.info()
 
-b = data.info()
-print(b)
+numeric_columns = data.select_dtypes(include=['int', 'float'])
+new_data = data[numeric_columns.columns]
+
+
+corr_matrix = new_data.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Correlation Heatmap')
+plt.show()
+
+
 
