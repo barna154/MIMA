@@ -50,8 +50,12 @@ for col in data.columns:
 # --- Megye visszaállítása ---
 data["Megye"] = megye_col
 
+# --- Per capita mutatók ---
+data['auto_per_capita'] = data['auto allomany'] / data['Nepesseg']
+data['uj_auto_per_capita'] = data['uj auto'] / data['Nepesseg']
+data['hasznalt_per_capita'] = data['hasznalt'] / data['Nepesseg']
+
 # --- Megyék rangsorolása átlagkereset alapján ---
-# 1) megyénkénti átlagkereset kiszámítása
 kereset_rang = (
     data.groupby("Megye")["atlag kereset"]
     .mean()
@@ -59,18 +63,16 @@ kereset_rang = (
     .reset_index()
 )
 
-# 2) rang hozzárendelése (0 = legalacsonyabb kereset)
+# Rang hozzárendelése (1 = legalacsonyabb kereset)
 kereset_rang["Megye_kod"] = kereset_rang["atlag kereset"].rank(method="dense").astype(int)
 
-# 3) visszacsatolás a fő táblába
+# Visszacsatolás a fő táblába
 data = data.merge(kereset_rang[["Megye", "Megye_kod"]], on="Megye", how="left")
 
-# --- Ellenőrzés ---
-print(data.head())
-
-# --- Csak numerikus oszlopok kiválasztása + Megye_kod hozzáadása ---
+# --- Csak numerikus oszlopok kiválasztása ---
 numeric_columns = data.select_dtypes(include=['int', 'float']).columns.tolist()
 
+# Biztosan benne legyen a Megye_kod
 if "Megye_kod" not in numeric_columns:
     numeric_columns.append("Megye_kod")
 
@@ -80,7 +82,7 @@ new_data = data[numeric_columns]
 corr_matrix = new_data.corr()
 
 # --- Heatmap ---
-plt.figure(figsize=(12, 10))
+plt.figure(figsize=(14, 12))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-plt.title('Correlation Heatmap (Megyék rangsorolva átlagkereset szerint)')
+plt.title('Correlation Heatmap (Megyék rangsorolva kereset szerint, per capita mutatókkal)')
 plt.show()
