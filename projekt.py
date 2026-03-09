@@ -13,11 +13,6 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # --- Fájlok ---
 files = [
     r"adatbazisok\adatok2023.csv",
@@ -27,8 +22,8 @@ files = [
 dfs = []
 
 for f in files:
-    df = pd.read_csv(f, sep=";", encoding="cp1250")
-    df["ev"] = f[-8:-4]   # év hozzáadása
+    df = pd.read_csv(f, sep=";", encoding="utf-8-sig")  # <<< BOM eltávolítása
+    df["ev"] = f[-8:-4]
     dfs.append(df)
 
 # --- Összefűzés ---
@@ -42,7 +37,7 @@ for col in data.columns:
     data[col] = (
         data[col]
         .astype(str)
-        .str.replace(r'\s+', '', regex=True)   # <<< EZ A FONTOS!
+        .str.replace(r'\s+', '', regex=True)   # <<< kezeli a 2023-as speciális szóközöket
         .str.replace(',', '.')
     )
     data[col] = pd.to_numeric(data[col], errors='coerce')
