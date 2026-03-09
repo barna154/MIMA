@@ -17,7 +17,7 @@ data = pd.read_csv(
     r"adatbazisok\sadatok2024.csv",
     sep=";",
     encoding="cp1250",
-    header=1
+    header=0
 )
 
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
