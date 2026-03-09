@@ -83,6 +83,6 @@ corr_matrix = new_data.corr()
 
 # --- Heatmap ---
 plt.figure(figsize=(14, 12))
-sns.heatmap(corr_matrix, annot=True, cmap='inferno', linewidths=0.5)
+sns.heatmap(corr_matrix, annot=True, cmap='icefire', linewidths=0.5)
 plt.title('Correlation Heatmap (Megyék rangsorolva kereset szerint, per capita mutatókkal)')
 plt.show()
