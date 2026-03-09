@@ -97,7 +97,7 @@ corr_matrix = new_data.corr()
 corr_matrix_renamed = corr_matrix.rename(index=label_map, columns=label_map)
 
 # --- Heatmap ---
-fig, ax = plt.subplots(figsize=(9, 7))
+fig, ax = plt.subplots(figsize=(12, 9))
 
 sns.heatmap(
     corr_matrix_renamed,
