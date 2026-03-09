@@ -64,17 +64,17 @@ kereset_rang = (
 )
 
 # Rang hozzárendelése (1 = legalacsonyabb kereset)
-kereset_rang["Megye_kod"] = kereset_rang["atlag kereset"].rank(method="dense").astype(int)
+kereset_rang["Vármegye"] = kereset_rang["atlag kereset"].rank(method="dense").astype(int)
 
 # Visszacsatolás a fő táblába
-data = data.merge(kereset_rang[["Megye", "Megye_kod"]], on="Megye", how="left")
+data = data.merge(kereset_rang[["Megye", "Vármegye"]], on="Megye", how="left")
 
 # --- Csak numerikus oszlopok kiválasztása ---
 numeric_columns = data.select_dtypes(include=['int', 'float']).columns.tolist()
 
 # Biztosan benne legyen a Megye_kod
-if "Megye_kod" not in numeric_columns:
-    numeric_columns.append("Megye_kod")
+if "Vármegye" not in numeric_columns:
+    numeric_columns.append("Vármegye")
 
 new_data = data[numeric_columns]
 
