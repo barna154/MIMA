@@ -13,18 +13,19 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-# --- Fájlok ---
+# --- Fájlok (2022 is bekerült) ---
 files = [
+    r"adatbazisok\adatok2022.csv",
     r"adatbazisok\adatok2023.csv",
     r"adatbazisok\adatok2024.csv"
 ]
 
 dfs = []
 
-# --- Mindkét év beolvasása (BOM eltávolítással) ---
+# --- Mindhárom év beolvasása (BOM eltávolítással) ---
 for f in files:
     df = pd.read_csv(f, sep=";", encoding="utf-8-sig")
-    df["ev"] = f[-8:-4]  # év kiemelése a fájlnévből
+    df["ev"] = f[-8:-4]  # év kiemelése a fájlnévből (2022, 2023, 2024)
     dfs.append(df)
 
 # --- Összefűzés ---
@@ -38,11 +39,11 @@ megye_col = data["Megye"].astype(str)
 
 # --- Tisztítás: whitespace eltávolítása minden más oszlopból ---
 for col in data.columns:
-    if col != "Megye":  # <<< Megye oszlophoz nem nyúlunk
+    if col != "Megye":
         data[col] = (
             data[col]
             .astype(str)
-            .str.replace(r'\s+', '', regex=True)  # kezeli a 19 122 típusú számokat
+            .str.replace(r'\s+', '', regex=True)
             .str.replace(',', '.')
         )
         data[col] = pd.to_numeric(data[col], errors='coerce')
@@ -63,16 +64,14 @@ kereset_rang = (
     .reset_index()
 )
 
-# Rang hozzárendelése (1 = legalacsonyabb kereset)
 kereset_rang["Vármegye"] = kereset_rang["atlag kereset"].rank(method="dense").astype(int)
 
-# Visszacsatolás a fő táblába
+# --- Visszacsatolás ---
 data = data.merge(kereset_rang[["Megye", "Vármegye"]], on="Megye", how="left")
 
 # --- Csak numerikus oszlopok kiválasztása ---
 numeric_columns = data.select_dtypes(include=['int', 'float']).columns.tolist()
 
-# Biztosan benne legyen a Megye_kod
 if "Vármegye" not in numeric_columns:
     numeric_columns.append("Vármegye")
 
@@ -86,13 +85,18 @@ label_map = {
     "uj auto": "Új",
     "hasznalt": "Használt",
     "eletkor": "Átlag életkor",
-    "ev": "Év"
+    "ev": "Év",
+    "Autó/fő": "Autó / fő",
+    "Új/fő": "Új / fő",
+    "Használt/fő": "Használt / fő",
+    "Vármegye": "Vármegye rang"
 }
 
 # --- Korreláció ---
 corr_matrix = new_data.corr()
 corr_matrix_renamed = corr_matrix.rename(index=label_map, columns=label_map)
 
+# --- Heatmap ---
 fig, ax = plt.subplots(figsize=(9, 7))
 
 sns.heatmap(
@@ -106,7 +110,7 @@ sns.heatmap(
 
 plt.title('Korrelációs heatmap', fontsize=12, pad=3)
 
-# <<< A LÉNYEG: az egész ábrát feljebb toljuk >>>
+# --- Az egész ábrát feljebb toljuk ---
 pos = ax.get_position()
 ax.set_position([pos.x0, pos.y0 + 0.07, pos.width, pos.height])
 
