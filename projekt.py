@@ -13,9 +13,6 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-
-
-
 # --- Fájlok ---
 files = [
     r"adatbazisok\adatok2023.csv",
@@ -36,7 +33,7 @@ data = pd.concat(dfs, ignore_index=True)
 # --- Unnamed oszlopok törlése ---
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
 
-# --- Megye oszlop külön kezelése (NE konvertáljuk számmá!) ---
+# --- Megye oszlop külön kezelése ---
 megye_col = data["Megye"].astype(str)
 
 # --- Tisztítás: whitespace eltávolítása minden más oszlopból ---
@@ -53,8 +50,20 @@ for col in data.columns:
 # --- Megye visszaállítása ---
 data["Megye"] = megye_col
 
-# --- Megye kódolása 0–19-ig ---
-data["Megye_kod"] = data["Megye"].astype("category").cat.codes
+# --- Megyék rangsorolása átlagkereset alapján ---
+# 1) megyénkénti átlagkereset kiszámítása
+kereset_rang = (
+    data.groupby("Megye")["atlag kereset"]
+    .mean()
+    .sort_values()
+    .reset_index()
+)
+
+# 2) rang hozzárendelése (0 = legalacsonyabb kereset)
+kereset_rang["Megye_kod"] = kereset_rang["atlag kereset"].rank(method="dense").astype(int)
+
+# 3) visszacsatolás a fő táblába
+data = data.merge(kereset_rang[["Megye", "Megye_kod"]], on="Megye", how="left")
 
 # --- Ellenőrzés ---
 print(data.head())
@@ -73,5 +82,5 @@ corr_matrix = new_data.corr()
 # --- Heatmap ---
 plt.figure(figsize=(12, 10))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-plt.title('Correlation Heatmap (2023 + 2024, Megye kódolva)')
+plt.title('Correlation Heatmap (Megyék rangsorolva átlagkereset szerint)')
 plt.show()
