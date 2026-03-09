@@ -14,6 +14,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
 
+
+
 # --- Fájlok ---
 files = [
     r"adatbazisok\adatok2023.csv",
@@ -25,7 +27,7 @@ dfs = []
 # --- Mindkét év beolvasása (BOM eltávolítással) ---
 for f in files:
     df = pd.read_csv(f, sep=";", encoding="utf-8-sig")
-    df["ev"] = f[-8:-4]
+    df["ev"] = f[-8:-4]  # év kiemelése a fájlnévből
     dfs.append(df)
 
 # --- Összefűzés ---
@@ -34,16 +36,16 @@ data = pd.concat(dfs, ignore_index=True)
 # --- Unnamed oszlopok törlése ---
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
 
-# --- Megye oszlop külön kezelése ---
+# --- Megye oszlop külön kezelése (NE konvertáljuk számmá!) ---
 megye_col = data["Megye"].astype(str)
 
-# --- Tisztítás: minden whitespace eltávolítása a TÖBBI oszlopból ---
+# --- Tisztítás: whitespace eltávolítása minden más oszlopból ---
 for col in data.columns:
-    if col != "Megye":  # <<< NE nyúljunk a Megye oszlophoz
+    if col != "Megye":  # <<< Megye oszlophoz nem nyúlunk
         data[col] = (
             data[col]
             .astype(str)
-            .str.replace(r'\s+', '', regex=True)
+            .str.replace(r'\s+', '', regex=True)  # kezeli a 19 122 típusú számokat
             .str.replace(',', '.')
         )
         data[col] = pd.to_numeric(data[col], errors='coerce')
@@ -51,15 +53,19 @@ for col in data.columns:
 # --- Megye visszaállítása ---
 data["Megye"] = megye_col
 
-# --- Megye kódolása ---
+# --- Megye kódolása 0–19-ig ---
 data["Megye_kod"] = data["Megye"].astype("category").cat.codes
 
 # --- Ellenőrzés ---
 print(data.head())
 
-# --- Csak numerikus oszlopok kiválasztása ---
-numeric_columns = data.select_dtypes(include=['int', 'float'])
-new_data = data[numeric_columns.columns]
+# --- Csak numerikus oszlopok kiválasztása + Megye_kod hozzáadása ---
+numeric_columns = data.select_dtypes(include=['int', 'float']).columns.tolist()
+
+if "Megye_kod" not in numeric_columns:
+    numeric_columns.append("Megye_kod")
+
+new_data = data[numeric_columns]
 
 # --- Korreláció ---
 corr_matrix = new_data.corr()
