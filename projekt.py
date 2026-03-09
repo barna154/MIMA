@@ -36,11 +36,6 @@ for col in data.columns:
 # --- Eredeti adatok ellenőrzése ---
 print(data[['Nepesseg', 'auto allomany', 'uj auto', 'hasznalt']].head(10))
 
-# --- Per capita mutatók létrehozása ---
-data['auto_per_capita'] = data['auto allomany'] / data['Nepesseg']
-data['uj_auto_per_capita'] = data['uj auto'] / data['Nepesseg']
-data['hasznalt_per_capita'] = data['hasznalt'] / data['Nepesseg']
-
 # --- Csak numerikus oszlopok kiválasztása ---
 numeric_columns = data.select_dtypes(include=['int', 'float'])
 new_data = data[numeric_columns.columns]
