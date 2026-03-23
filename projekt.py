@@ -107,11 +107,41 @@ sns.heatmap(
     annot_kws={"size": 8},
     ax=ax
 )
-
 plt.title('Korrelációs heatmap', fontsize=16, pad=5)
-
-# --- Az egész ábrát feljebb toljuk ---
 pos = ax.get_position()
 ax.set_position([pos.x0, pos.y0 + 0.07, pos.width, pos.height])
 
 plt.show()
+
+
+
+
+
+
+data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
+# --- Feature-ök és target ---
+X = new_data.drop('atlag kereset', axis=1)  # vagy 'target', ha azt használod
+y = data['target']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+cm = confusion_matrix(y_test, y_pred)
+
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.xlabel('Jósolt')
+plt.ylabel('Valós')
+plt.title('Confusion Matrix')
+plt.show()
+
+print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+
+print(metrics.classification_report(y_test, y_pred))
+
+y = new_data['atlag kereset']
