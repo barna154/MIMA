@@ -90,5 +90,20 @@ py projekt.py
 ```
 </details>
 
+### Konfúzió mátrix
+Modell feltanítás átlagkereset/megye
+
+
+![Projekt logó](kepek/confusion.png)
+<div align="center">(7. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py projekt.py
+```
+</details>
+
+
 
 
