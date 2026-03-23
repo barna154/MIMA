@@ -153,8 +153,11 @@ model = RandomForestClassifier(random_state=42)
 print(metrics.classification_report(y_test, y_pred)) """
 
 
-# Csak a nem-null értékek
+# Csak a szükséges oszlopok, NaN-ok kiszűrése
 df_exp = data[['eletkor', 'atlag kereset']].dropna()
+
+# Rendezés X szerint (nagyon fontos!)
+df_exp = df_exp.sort_values(by='eletkor')
 
 X_exp = df_exp[['eletkor']]
 y_exp = df_exp['atlag kereset']
@@ -175,7 +178,7 @@ plt.figure(figsize=(8,6))
 # Scatter – minden adat
 sns.scatterplot(x=df_exp['eletkor'], y=df_exp['atlag kereset'], alpha=0.6)
 
-# Exponenciális görbe
+# Exponenciális görbe – csak egyszer
 plt.plot(df_exp['eletkor'], y_pred_exp, color='red', linewidth=2)
 
 plt.xlabel("Autók átlagéletkora")
