@@ -80,4 +80,15 @@ py fejenkent.py
 </details>
 
 
+![Projekt logó](kepek/heatmap.png)
+<div align="center">(6. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py projekt.py
+```
+</details>
+
+
 
