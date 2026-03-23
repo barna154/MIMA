@@ -13,6 +13,8 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
+from scipy.optimize import curve_fit
+
 
 # --- Fájlok (2022 is bekerült) ---
 files = [
@@ -147,8 +149,6 @@ print(metrics.classification_report(y_test, y_pred))
 
 y = new_data['atlag kereset']
 
-from sklearn.ensemble import RandomForestClassifier
-
 model = RandomForestClassifier(random_state=42)
 print(metrics.classification_report(y_test, y_pred))
 
@@ -162,7 +162,6 @@ df_exp = df_exp.sort_values(by='eletkor')
 x_data = df_exp['eletkor'].values
 y_data = df_exp['atlag kereset'].values
 
-from scipy.optimize import curve_fit
 
 # Exponenciális modell + eltolás:
 # y = a * exp(b * (x - x0)) + c
