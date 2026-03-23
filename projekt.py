@@ -118,7 +118,7 @@ plt.show()
 
 
 
-data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
+""" data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
 # --- Feature-ök és target ---
 X = new_data.drop('atlag kereset', axis=1)  # vagy 'target', ha azt használod
 y = data['target']
@@ -149,4 +149,40 @@ y = new_data['atlag kereset']
 from sklearn.ensemble import RandomForestClassifier
 
 model = RandomForestClassifier(random_state=42)
-print(metrics.classification_report(y_test, y_pred))
+print(metrics.classification_report(y_test, y_pred)) """
+
+
+# ================================
+# REGRESSZIÓ: átlagkereset jóslása
+# ================================
+
+# --- Feature-ök (csak relevánsak) ---
+X = data[['eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']]
+
+# --- Target ---
+y = data['atlag kereset']
+
+# --- Train-test split ---
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# --- Modell ---
+from sklearn.ensemble import RandomForestRegressor
+
+model = RandomForestRegressor(random_state=42)
+model.fit(X_train, y_train)
+
+# --- Jóslás ---
+y_pred = model.predict(X_test)
+
+# --- Kiértékelés ---
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("R2:", r2_score(y_test, y_pred))
+
+plt.figure(figsize=(8,6))
+sns.scatterplot(x=data['eletkor'], y=data['atlag kereset'])
+plt.xlabel("Autók átlagéletkora")
+plt.ylabel("Átlagkereset")
+plt.title("Kapcsolat: életkor vs kereset")
+plt.show()
