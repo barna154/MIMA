@@ -12,6 +12,7 @@ from sklearn.tree import plot_tree
 from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.linear_model import LinearRegression
 
 # --- Fájlok (2022 is bekerült) ---
 files = [
@@ -152,59 +153,37 @@ model = RandomForestClassifier(random_state=42)
 print(metrics.classification_report(y_test, y_pred)) """
 
 
-# ================================
-# REGRESSZIÓ: átlagkereset jóslása
-# ================================
+# Csak a nem-null értékek
+df_exp = data[['eletkor', 'atlag kereset']].dropna()
 
-# --- Csak a szükséges oszlopok ---
-data_clean = data[['atlag kereset', 'eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']].dropna()
+X_exp = df_exp[['eletkor']]
+y_exp = df_exp['atlag kereset']
 
-X = data_clean[['eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']]
-y = data_clean['atlag kereset']
+# Logaritmus a célváltozón
+y_log = np.log(y_exp)
 
-# --- Train-test split ---
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+# Lineáris regresszió a log(y)-ra
+model_exp = LinearRegression()
+model_exp.fit(X_exp, y_log)
 
-# --- Modell ---
-from sklearn.ensemble import RandomForestRegressor
+# Előrejelzés (visszaalakítva exponenciálisra)
+y_pred_exp = np.exp(model_exp.predict(X_exp))
 
-model = RandomForestRegressor(random_state=42)
-model.fit(X_train, y_train)
-
-# --- Jóslás ---
-y_pred = model.predict(X_test)
-
-# --- Kiértékelés ---
-print("MSE:", mean_squared_error(y_test, y_pred))
-print("R2:", r2_score(y_test, y_pred))
-
-# ================================
-# JAVÍTOTT REGRESSZIÓS ÁBRA
-# ================================
-
+# Ábra
 plt.figure(figsize=(8,6))
 
 # Scatter – minden adat
-sns.scatterplot(
-    x=data['eletkor'],
-    y=data['atlag kereset'],
-    alpha=0.6
-)
+sns.scatterplot(x=df_exp['eletkor'], y=df_exp['atlag kereset'], alpha=0.6)
 
-# Regressziós egyenes – minden adat, CI nélkül
-sns.regplot(
-    x=data['eletkor'],
-    y=data['atlag kereset'],
-    scatter=False,
-    ci=None,
-    color="red",
-    line_kws={"linewidth": 2}
-)
+# Exponenciális görbe
+plt.plot(df_exp['eletkor'], y_pred_exp, color='red', linewidth=2)
 
 plt.xlabel("Autók átlagéletkora")
 plt.ylabel("Átlagkereset")
-plt.title("Kapcsolat: életkor vs kereset")
+plt.title("Exponenciális illesztés: életkor vs kereset")
 
 plt.show()
+
+print("Exponenciális modell paraméterei:")
+print("a =", np.exp(model_exp.intercept_))
+print("b =", model_exp.coef_[0])
