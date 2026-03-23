@@ -119,7 +119,7 @@ plt.show()
 
 
 
-""" data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
+data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
 # --- Feature-ök és target ---
 X = new_data.drop('atlag kereset', axis=1)  # vagy 'target', ha azt használod
 y = data['target']
@@ -150,7 +150,7 @@ y = new_data['atlag kereset']
 from sklearn.ensemble import RandomForestClassifier
 
 model = RandomForestClassifier(random_state=42)
-print(metrics.classification_report(y_test, y_pred)) """
+print(metrics.classification_report(y_test, y_pred))
 
 
 # Csak a szükséges oszlopok, NaN-ok kiszűrése
