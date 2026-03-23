@@ -105,5 +105,20 @@ py projekt.py
 </details>
 
 
+### Modell pontossag
+Modell feltanítás átlagkereset/megye
+
+
+![Projekt logó](kepek/pontossag.png)
+<div align="center">(8. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py projekt.py
+```
+</details>
+
+
 
 
