@@ -156,37 +156,40 @@ print(metrics.classification_report(y_test, y_pred)) """
 # Csak a szükséges oszlopok, NaN-ok kiszűrése
 df_exp = data[['eletkor', 'atlag kereset']].dropna()
 
-# Rendezés X szerint (nagyon fontos!)
+# Rendezés X szerint
 df_exp = df_exp.sort_values(by='eletkor')
 
-X_exp = df_exp[['eletkor']]
-y_exp = df_exp['atlag kereset']
+X_exp = df_exp[['eletkor']].values
+y_exp = df_exp['atlag kereset'].values
 
-# Logaritmus a célváltozón
-y_log = np.log(y_exp)
+# Exponenciális regresszió: y = a * exp(b*x)
+log_y = np.log(y_exp)
 
-# Lineáris regresszió a log(y)-ra
 model_exp = LinearRegression()
-model_exp.fit(X_exp, y_log)
+model_exp.fit(X_exp, log_y)
 
-# Előrejelzés (visszaalakítva exponenciálisra)
-y_pred_exp = np.exp(model_exp.predict(X_exp))
+# Modell paraméterek
+a = np.exp(model_exp.intercept_)
+b = model_exp.coef_[0]
+
+# Sima görbéhez sűrű X tengely
+x_curve = np.linspace(X_exp.min(), X_exp.max(), 300).reshape(-1, 1)
+y_curve = a * np.exp(b * x_curve)
 
 # Ábra
-plt.figure(figsize=(8,6))
+plt.figure(figsize=(8, 6))
 
-# Scatter – minden adat
 sns.scatterplot(x=df_exp['eletkor'], y=df_exp['atlag kereset'], alpha=0.6)
-
-# Exponenciális görbe – csak egyszer
-plt.plot(df_exp['eletkor'], y_pred_exp, color='red', linewidth=2)
+plt.plot(x_curve, y_curve, color='red', linewidth=2, label='Exponenciális illesztés')
 
 plt.xlabel("Autók átlagéletkora")
 plt.ylabel("Átlagkereset")
-plt.title("Exponenciális illesztés: életkor vs kereset")
+plt.title("Exponenciális regresszió: életkor vs kereset")
+plt.legend()
 
 plt.show()
 
 print("Exponenciális modell paraméterei:")
-print("a =", np.exp(model_exp.intercept_))
-print("b =", model_exp.coef_[0])
+print(f"a = {a}")
+print(f"b = {b}")
+print(f"Modell: y = {a:.4f} * exp({b:.4f} * x)")
