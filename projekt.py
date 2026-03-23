@@ -162,6 +162,11 @@ X = data[['eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']]
 # --- Target ---
 y = data['atlag kereset']
 
+data_clean = data[['atlag kereset', 'eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']].dropna()
+
+X = data_clean[['eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']]
+y = data_clean['atlag kereset']
+
 # --- Train-test split ---
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
