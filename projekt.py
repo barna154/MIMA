@@ -156,12 +156,7 @@ print(metrics.classification_report(y_test, y_pred)) """
 # REGRESSZIÓ: átlagkereset jóslása
 # ================================
 
-# --- Feature-ök (csak relevánsak) ---
-X = data[['eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']]
-
-# --- Target ---
-y = data['atlag kereset']
-
+# --- Csak a szükséges oszlopok ---
 data_clean = data[['atlag kereset', 'eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']].dropna()
 
 X = data_clean[['eletkor', 'Autó/fő', 'Új/fő', 'Használt/fő']]
@@ -185,15 +180,31 @@ y_pred = model.predict(X_test)
 print("MSE:", mean_squared_error(y_test, y_pred))
 print("R2:", r2_score(y_test, y_pred))
 
+# ================================
+# JAVÍTOTT REGRESSZIÓS ÁBRA
+# ================================
+
 plt.figure(figsize=(8,6))
-sns.scatterplot(x=data['eletkor'], y=data['atlag kereset'])
+
+# Scatter – minden adat
+sns.scatterplot(
+    x=data['eletkor'],
+    y=data['atlag kereset'],
+    alpha=0.6
+)
+
+# Regressziós egyenes – minden adat, CI nélkül
+sns.regplot(
+    x=data['eletkor'],
+    y=data['atlag kereset'],
+    scatter=False,
+    ci=None,
+    color="red",
+    line_kws={"linewidth": 2}
+)
+
 plt.xlabel("Autók átlagéletkora")
 plt.ylabel("Átlagkereset")
 plt.title("Kapcsolat: életkor vs kereset")
-sns.regplot(
-    x=data_clean['eletkor'], 
-    y=data_clean['atlag kereset'],
-    scatter_kws={"alpha": 0.6}
-)
-plt.show()
 
+plt.show()
