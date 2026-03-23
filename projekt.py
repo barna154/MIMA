@@ -190,4 +190,10 @@ sns.scatterplot(x=data['eletkor'], y=data['atlag kereset'])
 plt.xlabel("Autók átlagéletkora")
 plt.ylabel("Átlagkereset")
 plt.title("Kapcsolat: életkor vs kereset")
+sns.regplot(
+    x=data_clean['eletkor'], 
+    y=data_clean['atlag kereset'],
+    scatter_kws={"alpha": 0.6}
+)
 plt.show()
+
