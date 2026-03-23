@@ -120,5 +120,20 @@ py projekt.py
 </details>
 
 
+### Regressziós modell
+Modell feltanítás átlagkereset/átlag autóéletkor
+
+
+![Projekt logó](kepek/regresszio.png)
+<div align="center">(9. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py projekt.py
+```
+</details>
+
+
 
 
