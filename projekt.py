@@ -154,42 +154,64 @@ print(metrics.classification_report(y_test, y_pred)) """
 
 
 # Csak a szükséges oszlopok, NaN-ok kiszűrése
-df_exp = data[['eletkor', 'atlag kereset']].dropna()
+df_exp = data[['eletkor', 'atlag kereset']].dropna().copy()
 
 # Rendezés X szerint
 df_exp = df_exp.sort_values(by='eletkor')
 
-X_exp = df_exp[['eletkor']].values
-y_exp = df_exp['atlag kereset'].values
+x_data = df_exp['eletkor'].values
+y_data = df_exp['atlag kereset'].values
 
-# Exponenciális regresszió: y = a * exp(b*x)
-log_y = np.log(y_exp)
+from scipy.optimize import curve_fit
 
-model_exp = LinearRegression()
-model_exp.fit(X_exp, log_y)
+# Exponenciális modell + eltolás:
+# y = a * exp(b * (x - x0)) + c
+# az x0 csak numerikai stabilitás miatt kell
+x0 = x_data.mean()
 
-# Modell paraméterek
-a = np.exp(model_exp.intercept_)
-b = model_exp.coef_[0]
+def exp_model(x, a, b, c):
+    return a * np.exp(b * (x - x0)) + c
 
-# Sima görbéhez sűrű X tengely
-x_curve = np.linspace(X_exp.min(), X_exp.max(), 300).reshape(-1, 1)
-y_curve = a * np.exp(b * x_curve)
+# Kezdő becslések
+a0 = y_data.max() - y_data.min()
+b0 = -0.15
+c0 = y_data.min()
+
+# Illesztés
+params, _ = curve_fit(
+    exp_model,
+    x_data,
+    y_data,
+    p0=[a0, b0, c0],
+    maxfev=20000
+)
+
+a, b, c = params
+
+# Sima görbéhez sűrű pontok
+x_curve = np.linspace(x_data.min(), x_data.max(), 400)
+y_curve = exp_model(x_curve, a, b, c)
 
 # Ábra
 plt.figure(figsize=(8, 6))
-
 sns.scatterplot(x=df_exp['eletkor'], y=df_exp['atlag kereset'], alpha=0.6)
-plt.plot(x_curve, y_curve, color='red', linewidth=2, label='Exponenciális illesztés')
+plt.plot(x_curve, y_curve, color='red', linewidth=2.5, label='Exponenciális regresszió')
 
 plt.xlabel("Autók átlagéletkora")
 plt.ylabel("Átlagkereset")
 plt.title("Exponenciális regresszió: életkor vs kereset")
 plt.legend()
-
 plt.show()
+
+# Illesztési mutatók
+y_pred = exp_model(x_data, a, b, c)
+r2 = r2_score(y_data, y_pred)
+rmse = np.sqrt(mean_squared_error(y_data, y_pred))
 
 print("Exponenciális modell paraméterei:")
 print(f"a = {a}")
 print(f"b = {b}")
-print(f"Modell: y = {a:.4f} * exp({b:.4f} * x)")
+print(f"c = {c}")
+print(f"Modell: y = {a:.4f} * exp({b:.4f} * (x - {x0:.4f})) + {c:.4f}")
+print(f"R^2 = {r2:.4f}")
+print(f"RMSE = {rmse:.4f}")
