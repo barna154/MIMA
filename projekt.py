@@ -145,3 +145,8 @@ print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
 print(metrics.classification_report(y_test, y_pred))
 
 y = new_data['atlag kereset']
+
+from sklearn.ensemble import RandomForestClassifier
+
+model = RandomForestClassifier(random_state=42)
+print(metrics.classification_report(y_test, y_pred))
