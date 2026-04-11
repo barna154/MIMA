@@ -129,31 +129,6 @@ y = data['target']
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
-"""
-model = DecisionTreeClassifier(random_state=42)
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-
-cm = confusion_matrix(y_test, y_pred)
-
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.xlabel('Jósolt')
-plt.ylabel('Valós')
-plt.title('Confusion Matrix')
-plt.show()
-
-print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
-
-print(metrics.classification_report(y_test, y_pred))
-
-y = new_data['atlag kereset']
-
-
-
-model = RandomForestClassifier(random_state=42)
-print(metrics.classification_report(y_test, y_pred)) """
-
 # -----------------------------
 # 1) DÖNTÉSI FA MODELL
 # -----------------------------
