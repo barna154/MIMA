@@ -121,7 +121,7 @@ plt.show()
 
 
 
-""" #MODELL
+#MODELL
 data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
 X = new_data.drop('atlag kereset', axis=1)
 y = data['target']
@@ -129,7 +129,7 @@ y = data['target']
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
-
+"""
 model = DecisionTreeClassifier(random_state=42)
 model.fit(X_train, y_train)
 
