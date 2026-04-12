@@ -122,51 +122,39 @@ plt.show()
 
 
 #MODELL
-data['target'] = (data['atlag kereset'] > data['atlag kereset'].median()).astype(int)
-X = new_data.drop('atlag kereset', axis=1)
-y = data['target']
+# CÉL: átlagkereset → átlagéletkor
+df_rev = data[['atlag kereset', 'eletkor']].dropna()
+
+X = df_rev[['atlag kereset']]
+y = df_rev['eletkor']
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
+
 # -----------------------------
-# 1) DÖNTÉSI FA MODELL
+# 1) DÖNTÉSI FA REGRESSZIÓ
 # -----------------------------
-dt_model = DecisionTreeClassifier(random_state=42)
+dt_model = DecisionTreeRegressor(random_state=42)
 dt_model.fit(X_train, y_train)
 
 dt_pred = dt_model.predict(X_test)
 
-print("=== Döntési fa eredményei ===")
-print("Accuracy:", metrics.accuracy_score(y_test, dt_pred))
-print(metrics.classification_report(y_test, dt_pred))
-
-cm_dt = confusion_matrix(y_test, dt_pred)
-sns.heatmap(cm_dt, annot=True, fmt='d', cmap='Blues')
-plt.title("Confusion Matrix – Decision Tree")
-plt.xlabel("Jósolt")
-plt.ylabel("Valós")
-plt.show()
-
+print("=== Döntési fa regresszió eredményei ===")
+print("R2:", r2_score(y_test, dt_pred))
+print("RMSE:", np.sqrt(mean_squared_error(y_test, dt_pred)))
 
 # -----------------------------
-# 2) RANDOM FOREST MODELL
+# 2) RANDOM FOREST REGRESSZIÓ
 # -----------------------------
-rf_model = RandomForestClassifier(random_state=42)
+rf_model = RandomForestRegressor(random_state=42)
 rf_model.fit(X_train, y_train)
 
 rf_pred = rf_model.predict(X_test)
 
-print("=== Random Forest eredményei ===")
-print("Accuracy:", metrics.accuracy_score(y_test, rf_pred))
-print(metrics.classification_report(y_test, rf_pred))
-
-cm_rf = confusion_matrix(y_test, rf_pred)
-sns.heatmap(cm_rf, annot=True, fmt='d', cmap='Greens')
-plt.title("Confusion Matrix – Random Forest")
-plt.xlabel("Jósolt")
-plt.ylabel("Valós")
-plt.show()
+print("=== Random Forest regresszió eredményei ===")
+print("R2:", r2_score(y_test, rf_pred))
+print("RMSE:", np.sqrt(mean_squared_error(y_test, rf_pred)))
 
 
 
