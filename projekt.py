@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split, RandomizedSearchCV 
 from sklearn import metrics 
 from sklearn.tree import plot_tree
