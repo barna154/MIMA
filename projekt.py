@@ -132,10 +132,6 @@ data['age_class'] = (data['eletkor'] > data['eletkor'].median()).astype(int)
 X = new_data.drop('eletkor', axis=1)
 y = data['age_class']
 
-####
-imputer = SimpleImputer(strategy='median')
-X = imputer.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
@@ -177,23 +173,22 @@ plt.show()
 
 
 
-#SVC modell
-svc_clf = SVC(kernel='rbf', random_state=42)
-svc_clf.fit(X_train, y_train)
 
-svc_pred = svc_clf.predict(X_test)
+log_clf = LogisticRegression(max_iter=500)
+log_clf.fit(X_train, y_train)
 
-print("=== SVC Classifier ===")
-print("Accuracy:", metrics.accuracy_score(y_test, svc_pred))
-print(metrics.classification_report(y_test, svc_pred))
+log_pred = log_clf.predict(X_test)
 
-cm_svc = confusion_matrix(y_test, svc_pred)
-sns.heatmap(cm_svc, annot=True, fmt='d', cmap='Purples')
-plt.title("Confusion Matrix – SVC")
+print("=== Logistic Regression ===")
+print("Accuracy:", metrics.accuracy_score(y_test, log_pred))
+print(metrics.classification_report(y_test, log_pred))
+
+cm_log = confusion_matrix(y_test, log_pred)
+sns.heatmap(cm_log, annot=True, fmt='d', cmap='Oranges')
+plt.title("Confusion Matrix – Logistic Regression")
 plt.xlabel("Jósolt")
 plt.ylabel("Valós")
 plt.show()
-
 
 
 #REGRESSZIÓ
