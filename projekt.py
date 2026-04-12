@@ -129,6 +129,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 data['age_class'] = (data['eletkor'] > data['eletkor'].median()).astype(int)
 
+X_base = new_data.drop('eletkor', axis=1)
+y_base = data['age_class']
+
 X = new_data.drop('eletkor', axis=1)
 y = data['age_class']
 
