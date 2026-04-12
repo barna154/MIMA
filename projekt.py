@@ -13,6 +13,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
+from sklearn.tree import  DecisionTreeRegressor
 from scipy.optimize import curve_fit
 
 
