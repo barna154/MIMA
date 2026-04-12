@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn import metrics 
 from sklearn.tree import plot_tree
 from sklearn.metrics import confusion_matrix
+from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
@@ -132,8 +133,8 @@ X = new_data.drop('eletkor', axis=1)
 y = data['age_class']
 
 ####
-X = X.dropna()
-y = y.loc[X.index]
+imputer = SimpleImputer(strategy='median')
+X = imputer.fit_transform(X)
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
