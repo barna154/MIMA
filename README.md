@@ -151,7 +151,7 @@ py projekt.py
 ```
 </details>
 
-![Projekt logó](kepek/confusion2.png)
+![Projekt logó](kepek/confusion3.png)
 <div align="center">(10. ábra)</div>
 <details>
 <summary>Futtatás</summary>
@@ -166,7 +166,7 @@ py projekt.py
 Modell feltanítás átlagkereset/megye
 
 
-![Projekt logó](kepek/pontossag2.png)
+![Projekt logó](kepek/pontossag3.png)
 <div align="center">(11. ábra)</div>
 <details>
 <summary>Futtatás</summary>
