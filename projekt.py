@@ -123,32 +123,6 @@ y = df_rev['eletkor']
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
-"""
-# -----------------------------
-# 1) DÖNTÉSI FA REGRESSZIÓ
-# -----------------------------
-dt_model = DecisionTreeRegressor(random_state=42)
-dt_model.fit(X_train, y_train)
-
-dt_pred = dt_model.predict(X_test)
-
-print("=== Döntési fa regresszió eredményei ===")
-print("R2:", r2_score(y_test, dt_pred))
-print("RMSE:", np.sqrt(mean_squared_error(y_test, dt_pred)))
-
-# -----------------------------
-# 2) RANDOM FOREST REGRESSZIÓ
-# -----------------------------
-rf_model = RandomForestRegressor(random_state=42)
-rf_model.fit(X_train, y_train)
-
-rf_pred = rf_model.predict(X_test)
-
-print("=== Random Forest regresszió eredményei ===")
-print("R2:", r2_score(y_test, rf_pred))
-print("RMSE:", np.sqrt(mean_squared_error(y_test, rf_pred)))
-"""
-
 
 
 data['age_class'] = (data['eletkor'] > data['eletkor'].median()).astype(int)
