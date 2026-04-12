@@ -160,6 +160,57 @@ print("RMSE:", np.sqrt(mean_squared_error(y_test, rf_pred)))
 
 
 
+
+# ÉLETKOR OSZTÁLYOZÁSA – CLASSIFIER
+data['age_class'] = (data['eletkor'] > data['eletkor'].median()).astype(int)
+
+X = new_data.drop('eletkor', axis=1)
+y = data['age_class']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# -----------------------------
+# 1) DÖNTÉSI FA OSZTÁLYOZÓ
+# -----------------------------
+dt_clf = DecisionTreeClassifier(random_state=42)
+dt_clf.fit(X_train, y_train)
+
+dt_pred = dt_clf.predict(X_test)
+
+print("=== Decision Tree Classifier ===")
+print("Accuracy:", metrics.accuracy_score(y_test, dt_pred))
+print(metrics.classification_report(y_test, dt_pred))
+
+cm_dt = confusion_matrix(y_test, dt_pred)
+sns.heatmap(cm_dt, annot=True, fmt='d', cmap='Blues')
+plt.title("Confusion Matrix – Decision Tree")
+plt.xlabel("Jósolt")
+plt.ylabel("Valós")
+plt.show()
+
+# -----------------------------
+# 2) RANDOM FOREST OSZTÁLYOZÓ
+# -----------------------------
+rf_clf = RandomForestClassifier(random_state=42)
+rf_clf.fit(X_train, y_train)
+
+rf_pred = rf_clf.predict(X_test)
+
+print("=== Random Forest Classifier ===")
+print("Accuracy:", metrics.accuracy_score(y_test, rf_pred))
+print(metrics.classification_report(y_test, rf_pred))
+
+cm_rf = confusion_matrix(y_test, rf_pred)
+sns.heatmap(cm_rf, annot=True, fmt='d', cmap='Greens')
+plt.title("Confusion Matrix – Random Forest")
+plt.xlabel("Jósolt")
+plt.ylabel("Valós")
+plt.show()
+
+
+
 #REGRESSZIÓ
 df_exp = data[['eletkor', 'atlag kereset']].dropna().copy()
 
