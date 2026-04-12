@@ -131,6 +131,10 @@ data['age_class'] = (data['eletkor'] > data['eletkor'].median()).astype(int)
 X = new_data.drop('eletkor', axis=1)
 y = data['age_class']
 
+####
+X = X.dropna()
+y = y.loc[X.index]
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
