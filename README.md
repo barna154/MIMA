@@ -151,12 +151,37 @@ py projekt.py
 ```
 </details>
 
+![Projekt logó](kepek/confusion2.png)
+<div align="center">(10. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py projekt.py
+```
+</details>
+
+
+### Modell pontossag
+Modell feltanítás átlagkereset/megye
+
+
+![Projekt logó](kepek/pontossag2.png)
+<div align="center">(11. ábra)</div>
+<details>
+<summary>Futtatás</summary>
+
+``` bash
+py projekt.py
+```
+</details>
+
 ### Regressziós modell
 Modell feltanítás átlagkereset/átlag autóéletkor
 
 
 ![Projekt logó](kepek/regresszio.png)
-<div align="center">(11. ábra)</div>
+<div align="center">(12. ábra)</div>
 <details>
 <summary>Futtatás</summary>
 
