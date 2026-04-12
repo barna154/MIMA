@@ -16,6 +16,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import  DecisionTreeRegressor
 from scipy.optimize import curve_fit
+from sklearn.svm import SVC
 
 
 files = [
@@ -165,6 +166,25 @@ print(metrics.classification_report(y_test, rf_pred))
 cm_rf = confusion_matrix(y_test, rf_pred)
 sns.heatmap(cm_rf, annot=True, fmt='d', cmap='Greens')
 plt.title("Confusion Matrix – Random Forest")
+plt.xlabel("Jósolt")
+plt.ylabel("Valós")
+plt.show()
+
+
+
+#SVC modell
+svc_clf = SVC(kernel='rbf', random_state=42)
+svc_clf.fit(X_train, y_train)
+
+svc_pred = svc_clf.predict(X_test)
+
+print("=== SVC Classifier ===")
+print("Accuracy:", metrics.accuracy_score(y_test, svc_pred))
+print(metrics.classification_report(y_test, svc_pred))
+
+cm_svc = confusion_matrix(y_test, svc_pred)
+sns.heatmap(cm_svc, annot=True, fmt='d', cmap='Purples')
+plt.title("Confusion Matrix – SVC")
 plt.xlabel("Jósolt")
 plt.ylabel("Valós")
 plt.show()
