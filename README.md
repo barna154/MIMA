@@ -79,6 +79,8 @@ py fejenkent.py
 ```
 </details>
 
+### Korrelációk
+Láthatjuk, hogy szoros összefüggés van az autóállomány átlagéletkora, illetve az átlagkereset között az adott megyében. Mint ahogy várható is, fordított arányosság van a két mutató között. A továbbiakban ezt az információt használjuk.
 
 ![Projekt logó](kepek/heatmap.png)
 <div align="center">(6. ábra)</div>

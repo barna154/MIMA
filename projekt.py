@@ -18,7 +18,6 @@ from sklearn.tree import  DecisionTreeRegressor
 from scipy.optimize import curve_fit
 
 
-# --- Fájlok (2022 is bekerült) ---
 files = [
     r"adatbazisok\adatok2022.csv",
     r"adatbazisok\adatok2023.csv",
@@ -27,22 +26,16 @@ files = [
 
 dfs = []
 
-# --- Mindhárom év beolvasása (BOM eltávolítással) ---
+#3 év beolvasása
 for f in files:
     df = pd.read_csv(f, sep=";", encoding="utf-8-sig")
     df["ev"] = f[-8:-4]  # év kiemelése a fájlnévből (2022, 2023, 2024)
     dfs.append(df)
 
-# --- Összefűzés ---
+#Szűrés
 data = pd.concat(dfs, ignore_index=True)
-
-# --- Unnamed oszlopok törlése ---
 data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
-
-# --- Megye oszlop külön kezelése ---
 megye_col = data["Megye"].astype(str)
-
-# --- Tisztítás: whitespace eltávolítása minden más oszlopból ---
 for col in data.columns:
     if col != "Megye":
         data[col] = (
@@ -52,16 +45,14 @@ for col in data.columns:
             .str.replace(',', '.')
         )
         data[col] = pd.to_numeric(data[col], errors='coerce')
-
-# --- Megye visszaállítása ---
 data["Megye"] = megye_col
 
-# --- Per capita mutatók ---
+#Per capita
 data['Autó/fő'] = data['auto allomany'] / data['Nepesseg']
 data['Új/fő'] = data['uj auto'] / data['Nepesseg']
 data['Használt/fő'] = data['hasznalt'] / data['Nepesseg']
 
-# --- Megyék rangsorolása átlagkereset alapján ---
+#Megye rangsor
 kereset_rang = (
     data.groupby("Megye")["atlag kereset"]
     .mean()
@@ -124,7 +115,6 @@ plt.show()
 
 
 #MODELL
-# CÉL: átlagkereset → átlagéletkor
 df_rev = data[['atlag kereset', 'eletkor']].dropna()
 
 X = df_rev[['atlag kereset']]
@@ -133,7 +123,7 @@ y = df_rev['eletkor']
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
-
+"""
 # -----------------------------
 # 1) DÖNTÉSI FA REGRESSZIÓ
 # -----------------------------
@@ -157,11 +147,10 @@ rf_pred = rf_model.predict(X_test)
 print("=== Random Forest regresszió eredményei ===")
 print("R2:", r2_score(y_test, rf_pred))
 print("RMSE:", np.sqrt(mean_squared_error(y_test, rf_pred)))
+"""
 
 
 
-
-# ÉLETKOR OSZTÁLYOZÁSA – CLASSIFIER
 data['age_class'] = (data['eletkor'] > data['eletkor'].median()).astype(int)
 
 X = new_data.drop('eletkor', axis=1)
@@ -171,9 +160,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# -----------------------------
-# 1) DÖNTÉSI FA OSZTÁLYOZÓ
-# -----------------------------
+#DÖNTÉSI FA OSZTÁLYOZÓ
 dt_clf = DecisionTreeClassifier(random_state=42)
 dt_clf.fit(X_train, y_train)
 
@@ -190,9 +177,8 @@ plt.xlabel("Jósolt")
 plt.ylabel("Valós")
 plt.show()
 
-# -----------------------------
-# 2) RANDOM FOREST OSZTÁLYOZÓ
-# -----------------------------
+
+#RANDOM FOREST OSZTÁLYOZÓ
 rf_clf = RandomForestClassifier(random_state=42)
 rf_clf.fit(X_train, y_train)
 
