@@ -173,6 +173,15 @@ plt.show()
 
 
 
+X_log = X_base.copy()
+y_log = y_base.copy()
+
+imputer = SimpleImputer(strategy='median')
+X_log = imputer.fit_transform(X_log)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_log, y_log, test_size=0.2, random_state=42
+)
 
 log_clf = LogisticRegression(max_iter=500)
 log_clf.fit(X_train, y_train)
