@@ -92,9 +92,13 @@ py projekt.py
 ```
 </details>
 
-### Konfúzió mátrix
-Modell feltanítás átlagkereset/megye
+### Modell tanítás
+A lehető legjobb pontosság elérése érdekénben több modellt is teszteltünk. Az eredmények alább láthatóak.
+A modellekbe felvezettük az adatokat és megpróbáltuk megjósoltatni velük, hogy adott átlagkereset alapján mennyi lehet az adott megyére vonatkoztatva az autók átlagéletkora.
 
+A modelleknél készítettünk konfúzió mátrixot, ahol a járművek átlagéletkora 0 - medián életkor alatt van, 1 - medián életkor felett van.
+
+### Random Forest Konfúzió mátrix
 
 ![Projekt logó](kepek/confusion.png)
 <div align="center">(7. ábra)</div>
@@ -107,10 +111,7 @@ py projekt.py
 </details>
 
 
-### Modell pontossag
-Modell feltanítás átlagkereset/megye
-
-
+### Random Forest Modell pontossag
 ![Projekt logó](kepek/pontossag.png)
 <div align="center">(8. ábra)</div>
 <details>
@@ -122,10 +123,7 @@ py projekt.py
 </details>
 
 
-### Konfúzió mátrix
-Modell feltanítás átlagkereset/megye
-
-
+### Decision Tree Konfúzió mátrix
 ![Projekt logó](kepek/confusion2.png)
 <div align="center">(9. ábra)</div>
 <details>
@@ -137,9 +135,7 @@ py projekt.py
 </details>
 
 
-### Modell pontossag
-Modell feltanítás átlagkereset/megye
-
+### Decision Tree Modell pontossag
 
 ![Projekt logó](kepek/pontossag2.png)
 <div align="center">(10. ábra)</div>
@@ -150,6 +146,8 @@ Modell feltanítás átlagkereset/megye
 py projekt.py
 ```
 </details>
+
+### Logistic Regression Konfúzió mátrix
 
 ![Projekt logó](kepek/confusion3.png)
 <div align="center">(10. ábra)</div>
@@ -162,9 +160,7 @@ py projekt.py
 </details>
 
 
-### Modell pontossag
-Modell feltanítás átlagkereset/megye
-
+### Logistic Regression Modell pontossag
 
 ![Projekt logó](kepek/pontossag3.png)
 <div align="center">(11. ábra)</div>
@@ -176,8 +172,10 @@ py projekt.py
 ```
 </details>
 
-### Regressziós modell
-Modell feltanítás átlagkereset/átlag autóéletkor
+
+
+### Exponenciális regressziós modell
+A jobb vizuális szemléltetés érdekében az átlagéletkor/átlagkereset meg van jelenítve egy regressziós diagrammon is.
 
 
 ![Projekt logó](kepek/regresszio.png)
@@ -191,5 +189,6 @@ py projekt.py
 </details>
 
 
-
+### Összegzés
+A modellek a várható eredményt hozták. Képes megjósolni magyar viszonylatban előrelátható életkort a személygépkocsi állományra.
 
